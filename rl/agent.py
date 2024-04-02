@@ -6,23 +6,23 @@ import os
 
 import tensorflow.keras as keras
 
-chkpt_dir_path = "/home/dh127-pc4/workspace/STRL/rl/model3"
+chkpt_dir_path = "/home/dh127-pc4/workspace/STRL/rl/model150"
 
 class Agent:
-  def __init__(self, gamma=0.97, n_actions=1, chkpt_dir=chkpt_dir_path):
+  def __init__(self, gamma=0.98, n_actions=1, chkpt_dir=chkpt_dir_path):
     self.gamma = gamma
     self.n_actions = n_actions
     self.actor_critic = ActorCriticNetwork(n_actions=n_actions)
 
-    self.actor_critic.compile(optimizer=Adam(learning_rate=0.0002))
+    self.actor_critic.compile(optimizer=Adam(learning_rate=0.001))
     self.checkpoint_file = os.path.join(chkpt_dir_path, '_actor_critic_')
     # exception:  'Agent' object has no attribute 'checkpointfile'
 
   def choose_action(self, observation):
     _, mu, sigma = self.actor_critic(observation)
-    action_distribution = tfp.distributions.Normal(loc=mu, scale=0.01)
+    action_distribution = tfp.distributions.Normal(loc=mu, scale=sigma)
     raw_action = action_distribution.sample()
-    action = tf.clip_by_value(raw_action, clip_value_min=5.0, clip_value_max=300.00)
+    action = tf.clip_by_value(raw_action, clip_value_min=15.0, clip_value_max=80.00)
     log_prob = action_distribution.log_prob(action)
     self.action = action
     action = action[0]
@@ -61,13 +61,16 @@ class Agent:
       loss = actor_loss + critic_loss
     # Compute gradients and update weights
     gradients = tape.gradient(loss, self.actor_critic.trainable_variables)
+    
+
     # for var in self.actor_critic.trainable_variables:
     #   print("Trainable variables", var)
     self.actor_critic.optimizer.apply_gradients(zip(gradients, self.actor_critic.trainable_variables))
+    print("agent is trained")
   
   def save_models(self):
-    print("Saved model!!!")
     self.actor_critic.save_weights(self.checkpoint_file)
+    print("Saved model!!!")
 
   def load_models(self):
     self.actor_critic.load_weights(self.checkpoint_file)
