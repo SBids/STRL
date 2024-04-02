@@ -99,6 +99,7 @@ if __name__ == '__main__':
         node.cmd("sysctl net.ipv4.ipfrag_time = 10") #sets the value of the net.ipv4.ipfrag_time parameter to 10 on the station.
         node.cmd("sysctl net.ipv4.ipfrag_high_thresh = 26214400") #sets the value of the net.ipv4.ipfrag_high_thresh parameter to 26214400 on the station. This parameter is related to the high threshold for IPv4 packet fragmentation
     sleep(1)
+    # producers_prefix = {"sta1" : "/producer/sta1"}
     producers_prefix = {"sta1" : "/producer/sta1"}
     ndnwifi.start()
     info("Starting NFD ")
@@ -109,23 +110,23 @@ if __name__ == '__main__':
     mcast = "224.0.23.170"
     producers = [ndnwifi.net[x] for x in producers_prefix.keys()]
     consumers = [y for y in ndnwifi.net.stations if y.name not in [x.name for x in producers]]
-    print ("producers: ", producers)
-    print ("consumers: ", consumers)
-    print("RL path: ", rl_path)
+    # print ("producers: ", producers)
+    # print ("consumers: ", consumers)
+    # print("RL path: ", rl_path)
     
     for c in consumers:
         Nfdc.registerRoute (c, "/producer", mcast)
         sleep(2)
         c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
         sleep(5) #changed to 5 from 10
-        print("The consumer slept for 5 ms") 
+        # print("The consumer slept for 5 ms") 
     for p in producers:
         # sleep (1)
-        print ("starting producer {}".format(p))
+        # print ("starting producer {}".format(p))
         p.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, p.name))
 
         sleep(5)#changed to 5 from 10
-        print("The producer slept for 10 ms before sending the file !!!")
+        # print("The producer slept for 10 ms before sending the file !!!")
         sendFile(p, producers_prefix[p.name], testFile)
 
 

@@ -1,0 +1,937 @@
+1708474089.965145 10 milliseconds Interest sent : /v=1708474079916/seg=0
+1708474089.965561 10 milliseconds Interest sent : /v=1708474079916/seg=1
+1708474092.443213 20 milliseconds  Sending data /v=1708474079916/seg=100
+1708474092.443323 20 milliseconds  Sending data /v=1708474079916/seg=101
+1708474090.938186 14 milliseconds Interest sent : /v=1708474079916/seg=102
+1708474092.443389 20 milliseconds  Sending data /v=1708474079916/seg=102
+1708474090.938337 14 milliseconds Interest sent : /v=1708474079916/seg=103
+1708474092.443486 20 milliseconds  Sending data /v=1708474079916/seg=103
+1708474090.939437 14 milliseconds Interest sent : /v=1708474079916/seg=104
+1708474092.443649 20 milliseconds  Sending data /v=1708474079916/seg=104
+1708474090.940163 14 milliseconds Interest sent : /v=1708474079916/seg=105
+1708474092.443731 20 milliseconds  Sending data /v=1708474079916/seg=105
+1708474090.945528 14 milliseconds Interest sent : /v=1708474079916/seg=106
+1708474090.945818 14 milliseconds Interest sent : /v=1708474079916/seg=107
+1708474092.417437 20 milliseconds  Sending data /v=1708474079916/seg=108
+1708474092.417570 20 milliseconds  Sending data /v=1708474079916/seg=109
+1708474090.950475 14 milliseconds Interest sent : /v=1708474079916/seg=110
+1708474092.417679 20 milliseconds  Sending data /v=1708474079916/seg=110
+1708474090.950499 14 milliseconds Interest sent : /v=1708474079916/seg=111
+1708474092.417779 20 milliseconds  Sending data /v=1708474079916/seg=111
+1708474090.951192 14 milliseconds Interest sent : /v=1708474079916/seg=112
+1708474092.417881 20 milliseconds  Sending data /v=1708474079916/seg=112
+1708474090.951235 14 milliseconds Interest sent : /v=1708474079916/seg=113
+1708474092.417979 20 milliseconds  Sending data /v=1708474079916/seg=113
+1708474090.955081 14 milliseconds Interest sent : /v=1708474079916/seg=114
+1708474092.418068 20 milliseconds  Sending data /v=1708474079916/seg=114
+1708474090.955276 14 milliseconds Interest sent : /v=1708474079916/seg=115
+1708474092.418160 20 milliseconds  Sending data /v=1708474079916/seg=115
+1708474090.957351 14 milliseconds Interest sent : /v=1708474079916/seg=116
+1708474092.418256 20 milliseconds  Sending data /v=1708474079916/seg=116
+1708474090.957523 14 milliseconds Interest sent : /v=1708474079916/seg=117
+1708474090.963095 14 milliseconds Interest sent : /v=1708474079916/seg=118
+1708474090.963289 14 milliseconds Interest sent : /v=1708474079916/seg=119
+1708474090.433223 15 milliseconds  Sending data /v=1708474079916/seg=12
+1708474090.964143 14 milliseconds Interest sent : /v=1708474079916/seg=120
+1708474092.418444 20 milliseconds  Sending data /v=1708474079916/seg=120
+1708474090.964262 14 milliseconds Interest sent : /v=1708474079916/seg=121
+1708474092.418355 20 milliseconds  Sending data /v=1708474079916/seg=121
+1708474090.965006 14 milliseconds Interest sent : /v=1708474079916/seg=122
+1708474090.965059 14 milliseconds Interest sent : /v=1708474079916/seg=123
+1708474090.966114 14 milliseconds Interest sent : /v=1708474079916/seg=124
+1708474090.966398 14 milliseconds Interest sent : /v=1708474079916/seg=125
+1708474092.705833 20 milliseconds Interest sent : /v=1708474079916/seg=126
+1708474092.705908 20 milliseconds Interest sent : /v=1708474079916/seg=129
+1708474090.433532 15 milliseconds  Sending data /v=1708474079916/seg=13
+1708474092.706032 20 milliseconds Interest sent : /v=1708474079916/seg=130
+1708474092.705971 20 milliseconds Interest sent : /v=1708474079916/seg=131
+1708474094.767118 11 milliseconds  Sending data /v=1708474079916/seg=134
+1708474094.964504 12 milliseconds Interest sent : /v=1708474079916/seg=135
+1708474094.980731 12 milliseconds Interest sent : /v=1708474079916/seg=136
+1708474092.725091 20 milliseconds Interest sent : /v=1708474079916/seg=137
+1708474092.725356 20 milliseconds Interest sent : /v=1708474079916/seg=138
+1708474092.725262 20 milliseconds Interest sent : /v=1708474079916/seg=139
+1708474092.725570 20 milliseconds Interest sent : /v=1708474079916/seg=140
+1708474092.725462 20 milliseconds Interest sent : /v=1708474079916/seg=141
+1708474092.725789 20 milliseconds Interest sent : /v=1708474079916/seg=142
+1708474094.683591 9 milliseconds  Sending data /v=1708474079916/seg=142
+1708474092.725679 20 milliseconds Interest sent : /v=1708474079916/seg=143
+1708474092.793118 20 milliseconds Interest sent : /v=1708474079916/seg=144
+1708474092.793095 20 milliseconds Interest sent : /v=1708474079916/seg=145
+1708474094.683827 9 milliseconds  Sending data /v=1708474079916/seg=145
+1708474092.897934 20 milliseconds Interest sent : /v=1708474079916/seg=146
+1708474092.897912 20 milliseconds Interest sent : /v=1708474079916/seg=147
+1708474092.897969 20 milliseconds Interest sent : /v=1708474079916/seg=148
+1708474092.897952 20 milliseconds Interest sent : /v=1708474079916/seg=149
+1708474092.898004 20 milliseconds Interest sent : /v=1708474079916/seg=150
+1708474092.897987 20 milliseconds Interest sent : /v=1708474079916/seg=151
+1708474092.929604 21 milliseconds Interest sent : /v=1708474079916/seg=152
+1708474092.929566 21 milliseconds Interest sent : /v=1708474079916/seg=153
+1708474092.929659 21 milliseconds Interest sent : /v=1708474079916/seg=154
+1708474092.929632 21 milliseconds Interest sent : /v=1708474079916/seg=155
+1708474092.929714 21 milliseconds Interest sent : /v=1708474079916/seg=156
+1708474094.407556 14 milliseconds  Sending data /v=1708474079916/seg=156
+1708474092.929686 21 milliseconds Interest sent : /v=1708474079916/seg=157
+1708474094.377248 15 milliseconds  Sending data /v=1708474079916/seg=157
+1708474092.929764 21 milliseconds Interest sent : /v=1708474079916/seg=158
+1708474093.802820 20 milliseconds  Sending data /v=1708474079916/seg=158
+1708474094.593452 10 milliseconds  Sending data /v=1708474079916/seg=158
+1708474092.929740 21 milliseconds Interest sent : /v=1708474079916/seg=159
+1708474094.577469 12 milliseconds  Sending data /v=1708474079916/seg=159
+1708474092.929790 21 milliseconds Interest sent : /v=1708474079916/seg=161
+1708474092.929843 21 milliseconds Interest sent : /v=1708474079916/seg=162
+1708474092.929816 21 milliseconds Interest sent : /v=1708474079916/seg=163
+1708474093.369258 23 milliseconds Interest sent : /v=1708474079916/seg=164
+1708474093.369181 23 milliseconds Interest sent : /v=1708474079916/seg=165
+1708474093.391804 24 milliseconds Interest sent : /v=1708474079916/seg=166
+1708474095.203093 9 milliseconds  Sending data /v=1708474079916/seg=166
+1708474093.391773 24 milliseconds Interest sent : /v=1708474079916/seg=167
+1708474093.392073 24 milliseconds Interest sent : /v=1708474079916/seg=168
+1708474095.204260 9 milliseconds  Sending data /v=1708474079916/seg=168
+1708474095.203436 9 milliseconds  Sending data /v=1708474079916/seg=169
+1708474091.621143 19 milliseconds Interest sent : /v=1708474079916/seg=170
+1708474091.621180 19 milliseconds Interest sent : /v=1708474079916/seg=171
+1708474091.640996 19 milliseconds Interest sent : /v=1708474079916/seg=172
+1708474095.232969 9 milliseconds  Sending data /v=1708474079916/seg=172
+1708474091.641274 19 milliseconds Interest sent : /v=1708474079916/seg=173
+1708474095.232868 9 milliseconds  Sending data /v=1708474079916/seg=173
+1708474091.719949 19 milliseconds Interest sent : /v=1708474079916/seg=174
+1708474097.168130 8 milliseconds  Sending data /v=1708474079916/seg=174
+1708474091.720007 19 milliseconds Interest sent : /v=1708474079916/seg=175
+1708474091.720053 19 milliseconds Interest sent : /v=1708474079916/seg=176
+1708474091.720097 19 milliseconds Interest sent : /v=1708474079916/seg=177
+1708474092.181690 19 milliseconds Interest sent : /v=1708474079916/seg=178
+1708474095.233042 9 milliseconds  Sending data /v=1708474079916/seg=178
+1708474092.181780 19 milliseconds Interest sent : /v=1708474079916/seg=179
+1708474092.182037 19 milliseconds Interest sent : /v=1708474079916/seg=180
+1708474094.048123 20 milliseconds  Sending data /v=1708474079916/seg=180
+1708474092.182133 19 milliseconds Interest sent : /v=1708474079916/seg=181
+1708474094.012370 20 milliseconds  Sending data /v=1708474079916/seg=181
+1708474092.182733 19 milliseconds Interest sent : /v=1708474079916/seg=182
+1708474094.084905 20 milliseconds  Sending data /v=1708474079916/seg=182
+1708474094.793494 10 milliseconds  Sending data /v=1708474079916/seg=182
+1708474092.182825 19 milliseconds Interest sent : /v=1708474079916/seg=183
+1708474094.066955 20 milliseconds  Sending data /v=1708474079916/seg=183
+1708474094.793766 10 milliseconds  Sending data /v=1708474079916/seg=183
+1708474092.183627 19 milliseconds Interest sent : /v=1708474079916/seg=184
+1708474093.805070 20 milliseconds  Sending data /v=1708474079916/seg=184
+1708474094.101397 20 milliseconds  Sending data /v=1708474079916/seg=184
+1708474094.793971 10 milliseconds  Sending data /v=1708474079916/seg=184
+1708474092.184155 19 milliseconds Interest sent : /v=1708474079916/seg=185
+1708474093.805204 20 milliseconds  Sending data /v=1708474079916/seg=185
+1708474094.085056 20 milliseconds  Sending data /v=1708474079916/seg=185
+1708474094.794178 10 milliseconds  Sending data /v=1708474079916/seg=185
+1708474092.184914 19 milliseconds Interest sent : /v=1708474079916/seg=186
+1708474093.805596 20 milliseconds  Sending data /v=1708474079916/seg=186
+1708474094.101541 20 milliseconds  Sending data /v=1708474079916/seg=186
+1708474094.794368 10 milliseconds  Sending data /v=1708474079916/seg=186
+1708474092.185390 19 milliseconds Interest sent : /v=1708474079916/seg=187
+1708474093.806076 20 milliseconds  Sending data /v=1708474079916/seg=187
+1708474094.101479 20 milliseconds  Sending data /v=1708474079916/seg=187
+1708474094.794558 10 milliseconds  Sending data /v=1708474079916/seg=187
+1708474092.185456 19 milliseconds Interest sent : /v=1708474079916/seg=188
+1708474094.118665 20 milliseconds  Sending data /v=1708474079916/seg=188
+1708474094.794853 10 milliseconds  Sending data /v=1708474079916/seg=188
+1708474092.185760 19 milliseconds Interest sent : /v=1708474079916/seg=189
+1708474094.101590 20 milliseconds  Sending data /v=1708474079916/seg=189
+1708474094.795045 10 milliseconds  Sending data /v=1708474079916/seg=189
+1708474092.185821 19 milliseconds Interest sent : /v=1708474079916/seg=190
+1708474094.196816 20 milliseconds  Sending data /v=1708474079916/seg=190
+1708474094.682854 9 milliseconds  Sending data /v=1708474079916/seg=190
+1708474094.795510 10 milliseconds  Sending data /v=1708474079916/seg=190
+1708474097.168686 8 milliseconds  Sending data /v=1708474079916/seg=190
+1708474093.138507 22 milliseconds Interest sent : /v=1708474079916/seg=191
+1708474093.996937 20 milliseconds  Sending data /v=1708474079916/seg=191
+1708474094.617866 10 milliseconds  Sending data /v=1708474079916/seg=191
+1708474094.682697 9 milliseconds  Sending data /v=1708474079916/seg=191
+1708474093.391616 24 milliseconds Interest sent : /v=1708474079916/seg=192
+1708474094.604031 10 milliseconds  Sending data /v=1708474079916/seg=192
+1708474094.612574 10 milliseconds  Sending data /v=1708474079916/seg=192
+1708474094.621554 10 milliseconds  Sending data /v=1708474079916/seg=192
+1708474097.169153 8 milliseconds  Sending data /v=1708474079916/seg=192
+1708474093.393197 24 milliseconds Interest sent : /v=1708474079916/seg=193
+1708474094.604216 10 milliseconds  Sending data /v=1708474079916/seg=193
+1708474094.612444 10 milliseconds  Sending data /v=1708474079916/seg=193
+1708474094.621432 10 milliseconds  Sending data /v=1708474079916/seg=193
+1708474094.621756 10 milliseconds  Sending data /v=1708474079916/seg=193
+1708474097.168968 8 milliseconds  Sending data /v=1708474079916/seg=193
+1708474093.427052 23 milliseconds Interest sent : /v=1708474079916/seg=194
+1708474096.193503 5 milliseconds  Sending data /v=1708474079916/seg=194
+1708474096.228052 5 milliseconds  Sending data /v=1708474079916/seg=194
+1708474097.169322 8 milliseconds  Sending data /v=1708474079916/seg=194
+1708474093.427139 23 milliseconds Interest sent : /v=1708474079916/seg=195
+1708474096.785787 6 milliseconds  Sending data /v=1708474079916/seg=195
+1708474093.427213 23 milliseconds Interest sent : /v=1708474079916/seg=196
+1708474096.785440 6 milliseconds  Sending data /v=1708474079916/seg=196
+1708474093.427281 23 milliseconds Interest sent : /v=1708474079916/seg=197
+1708474096.193284 5 milliseconds  Sending data /v=1708474079916/seg=197
+1708474093.427350 23 milliseconds Interest sent : /v=1708474079916/seg=198
+1708474097.173436 8 milliseconds  Sending data /v=1708474079916/seg=198
+1708474099.989190 9 milliseconds  Sending data /v=1708474079916/seg=198
+1708474093.427415 23 milliseconds Interest sent : /v=1708474079916/seg=199
+1708474097.169497 8 milliseconds  Sending data /v=1708474079916/seg=199
+1708474095.226457 8 milliseconds Interest sent : /v=1708474079916/seg=200
+1708474097.173613 8 milliseconds  Sending data /v=1708474079916/seg=200
+1708474095.226322 8 milliseconds Interest sent : /v=1708474079916/seg=201
+1708474095.226199 8 milliseconds Interest sent : /v=1708474079916/seg=202
+1708474095.226070 8 milliseconds Interest sent : /v=1708474079916/seg=203
+1708474095.225932 8 milliseconds Interest sent : /v=1708474079916/seg=204
+1708474095.225744 8 milliseconds Interest sent : /v=1708474079916/seg=205
+1708474095.225627 8 milliseconds Interest sent : /v=1708474079916/seg=206
+1708474094.701977 9 milliseconds  Sending data /v=1708474079916/seg=207
+1708474094.810388 8 milliseconds  Sending data /v=1708474079916/seg=207
+1708474093.428851 23 milliseconds Interest sent : /v=1708474079916/seg=208
+1708474095.225562 8 milliseconds Interest sent : /v=1708474079916/seg=208
+1708474097.596068 10 milliseconds  Sending data /v=1708474079916/seg=208
+1708474093.429104 23 milliseconds Interest sent : /v=1708474079916/seg=209
+1708474095.225506 8 milliseconds Interest sent : /v=1708474079916/seg=209
+1708474099.347370 9 milliseconds Interest sent : /v=1708474079916/seg=209
+1708474093.429137 23 milliseconds Interest sent : /v=1708474079916/seg=210
+1708474095.225452 8 milliseconds Interest sent : /v=1708474079916/seg=210
+1708474099.347342 9 milliseconds Interest sent : /v=1708474079916/seg=210
+1708474093.429161 23 milliseconds Interest sent : /v=1708474079916/seg=211
+1708474095.225393 8 milliseconds Interest sent : /v=1708474079916/seg=211
+1708474099.347316 9 milliseconds Interest sent : /v=1708474079916/seg=211
+1708474093.429222 23 milliseconds Interest sent : /v=1708474079916/seg=212
+1708474095.225343 8 milliseconds Interest sent : /v=1708474079916/seg=212
+1708474099.347282 9 milliseconds Interest sent : /v=1708474079916/seg=212
+1708474093.429248 23 milliseconds Interest sent : /v=1708474079916/seg=213
+1708474095.225310 8 milliseconds Interest sent : /v=1708474079916/seg=213
+1708474099.347239 9 milliseconds Interest sent : /v=1708474079916/seg=213
+1708474093.429273 23 milliseconds Interest sent : /v=1708474079916/seg=214
+1708474095.660935 8 milliseconds Interest sent : /v=1708474079916/seg=214
+1708474093.789309 15 milliseconds Interest sent : /v=1708474079916/seg=215
+1708474095.666582 5 milliseconds Interest sent : /v=1708474079916/seg=215
+1708474093.789380 15 milliseconds Interest sent : /v=1708474079916/seg=216
+1708474099.362666 9 milliseconds Interest sent : /v=1708474079916/seg=216
+1708474093.789424 15 milliseconds Interest sent : /v=1708474079916/seg=217
+1708474093.789572 15 milliseconds Interest sent : /v=1708474079916/seg=218
+1708474095.666450 5 milliseconds Interest sent : /v=1708474079916/seg=218
+1708474097.174133 8 milliseconds  Sending data /v=1708474079916/seg=218
+1708474099.989507 9 milliseconds  Sending data /v=1708474079916/seg=218
+1708474093.789755 15 milliseconds Interest sent : /v=1708474079916/seg=219
+1708474095.665854 5 milliseconds Interest sent : /v=1708474079916/seg=219
+1708474097.173772 8 milliseconds  Sending data /v=1708474079916/seg=219
+1708474099.989353 9 milliseconds  Sending data /v=1708474079916/seg=219
+1708474093.790033 15 milliseconds Interest sent : /v=1708474079916/seg=220
+1708474095.665825 5 milliseconds Interest sent : /v=1708474079916/seg=220
+1708474097.174466 8 milliseconds  Sending data /v=1708474079916/seg=220
+1708474099.989761 9 milliseconds  Sending data /v=1708474079916/seg=220
+1708474093.790085 15 milliseconds Interest sent : /v=1708474079916/seg=221
+1708474095.665795 5 milliseconds Interest sent : /v=1708474079916/seg=221
+1708474097.174309 8 milliseconds  Sending data /v=1708474079916/seg=221
+1708474099.989609 9 milliseconds  Sending data /v=1708474079916/seg=221
+1708474095.665761 5 milliseconds Interest sent : /v=1708474079916/seg=222
+1708474097.174785 8 milliseconds  Sending data /v=1708474079916/seg=222
+1708474099.990061 9 milliseconds  Sending data /v=1708474079916/seg=222
+1708474095.665725 5 milliseconds Interest sent : /v=1708474079916/seg=223
+1708474097.174625 8 milliseconds  Sending data /v=1708474079916/seg=223
+1708474099.989911 9 milliseconds  Sending data /v=1708474079916/seg=223
+1708474095.665599 5 milliseconds Interest sent : /v=1708474079916/seg=224
+1708474097.174932 8 milliseconds  Sending data /v=1708474079916/seg=224
+1708474099.990785 9 milliseconds  Sending data /v=1708474079916/seg=224
+1708474093.790615 15 milliseconds Interest sent : /v=1708474079916/seg=225
+1708474095.665566 5 milliseconds Interest sent : /v=1708474079916/seg=225
+1708474099.377272 10 milliseconds  Sending data /v=1708474079916/seg=225
+1708474099.990593 9 milliseconds  Sending data /v=1708474079916/seg=225
+1708474093.790735 15 milliseconds Interest sent : /v=1708474079916/seg=226
+1708474095.665535 5 milliseconds Interest sent : /v=1708474079916/seg=226
+1708474093.790973 15 milliseconds Interest sent : /v=1708474079916/seg=227
+1708474095.665503 5 milliseconds Interest sent : /v=1708474079916/seg=227
+1708474099.448564 10 milliseconds  Sending data /v=1708474079916/seg=227
+1708474093.791036 15 milliseconds Interest sent : /v=1708474079916/seg=228
+1708474095.665465 5 milliseconds Interest sent : /v=1708474079916/seg=228
+1708474099.448694 10 milliseconds  Sending data /v=1708474079916/seg=228
+1708474093.791127 15 milliseconds Interest sent : /v=1708474079916/seg=229
+1708474095.665342 5 milliseconds Interest sent : /v=1708474079916/seg=229
+1708474099.448808 10 milliseconds  Sending data /v=1708474079916/seg=229
+1708474093.792218 15 milliseconds Interest sent : /v=1708474079916/seg=230
+1708474095.665312 5 milliseconds Interest sent : /v=1708474079916/seg=230
+1708474099.448908 10 milliseconds  Sending data /v=1708474079916/seg=230
+1708474093.792283 15 milliseconds Interest sent : /v=1708474079916/seg=231
+1708474095.665279 5 milliseconds Interest sent : /v=1708474079916/seg=231
+1708474098.083974 9 milliseconds  Sending data /v=1708474079916/seg=231
+1708474099.449001 10 milliseconds  Sending data /v=1708474079916/seg=231
+1708474093.792310 15 milliseconds Interest sent : /v=1708474079916/seg=232
+1708474095.665222 5 milliseconds Interest sent : /v=1708474079916/seg=232
+1708474098.083789 9 milliseconds  Sending data /v=1708474079916/seg=232
+1708474093.792488 15 milliseconds Interest sent : /v=1708474079916/seg=233
+1708474093.792549 15 milliseconds Interest sent : /v=1708474079916/seg=234
+1708474099.362634 9 milliseconds Interest sent : /v=1708474079916/seg=234
+1708474093.792756 15 milliseconds Interest sent : /v=1708474079916/seg=235
+1708474099.362589 9 milliseconds Interest sent : /v=1708474079916/seg=235
+1708474093.794305 15 milliseconds Interest sent : /v=1708474079916/seg=236
+1708474096.178902 5 milliseconds Interest sent : /v=1708474079916/seg=236
+1708474093.794653 15 milliseconds Interest sent : /v=1708474079916/seg=237
+1708474096.179084 5 milliseconds Interest sent : /v=1708474079916/seg=237
+1708474096.179249 5 milliseconds Interest sent : /v=1708474079916/seg=238
+1708474099.989037 9 milliseconds  Sending data /v=1708474079916/seg=238
+1708474096.179280 5 milliseconds Interest sent : /v=1708474079916/seg=239
+1708474098.081271 9 milliseconds  Sending data /v=1708474079916/seg=239
+1708474096.179348 5 milliseconds Interest sent : /v=1708474079916/seg=240
+1708474098.081179 9 milliseconds  Sending data /v=1708474079916/seg=240
+1708474096.179314 5 milliseconds Interest sent : /v=1708474079916/seg=241
+1708474098.080942 9 milliseconds  Sending data /v=1708474079916/seg=241
+1708474098.084296 9 milliseconds  Sending data /v=1708474079916/seg=241
+1708474096.179519 5 milliseconds Interest sent : /v=1708474079916/seg=242
+1708474098.080839 9 milliseconds  Sending data /v=1708474079916/seg=242
+1708474098.084588 9 milliseconds  Sending data /v=1708474079916/seg=242
+1708474096.179552 5 milliseconds Interest sent : /v=1708474079916/seg=243
+1708474098.082737 9 milliseconds  Sending data /v=1708474079916/seg=243
+1708474098.084852 9 milliseconds  Sending data /v=1708474079916/seg=243
+1708474096.179582 5 milliseconds Interest sent : /v=1708474079916/seg=244
+1708474098.082658 9 milliseconds  Sending data /v=1708474079916/seg=244
+1708474098.084766 9 milliseconds  Sending data /v=1708474079916/seg=244
+1708474096.449884 5 milliseconds Interest sent : /v=1708474079916/seg=245
+1708474098.082566 9 milliseconds  Sending data /v=1708474079916/seg=245
+1708474098.085050 9 milliseconds  Sending data /v=1708474079916/seg=245
+1708474099.988568 9 milliseconds  Sending data /v=1708474079916/seg=245
+1708474096.449854 5 milliseconds Interest sent : /v=1708474079916/seg=246
+1708474100.597042 9 milliseconds  Sending data /v=1708474079916/seg=246
+1708474096.449927 5 milliseconds Interest sent : /v=1708474079916/seg=247
+1708474099.988410 9 milliseconds  Sending data /v=1708474079916/seg=247
+1708474100.597093 9 milliseconds  Sending data /v=1708474079916/seg=247
+1708474096.449904 5 milliseconds Interest sent : /v=1708474079916/seg=248
+1708474099.988895 9 milliseconds  Sending data /v=1708474079916/seg=248
+1708474100.597125 9 milliseconds  Sending data /v=1708474079916/seg=248
+1708474096.449947 5 milliseconds Interest sent : /v=1708474079916/seg=249
+1708474099.988800 9 milliseconds  Sending data /v=1708474079916/seg=249
+1708474102.233413 10 milliseconds  Sending data /v=1708474079916/seg=249
+1708474096.450009 5 milliseconds Interest sent : /v=1708474079916/seg=250
+1708474099.988708 9 milliseconds  Sending data /v=1708474079916/seg=250
+1708474096.449987 5 milliseconds Interest sent : /v=1708474079916/seg=251
+1708474096.449968 5 milliseconds Interest sent : /v=1708474079916/seg=252
+1708474094.998602 12 milliseconds Interest sent : /v=1708474079916/seg=254
+1708474099.449097 10 milliseconds  Sending data /v=1708474079916/seg=254
+1708474095.667644 5 milliseconds Interest sent : /v=1708474079916/seg=255
+1708474099.449201 10 milliseconds  Sending data /v=1708474079916/seg=255
+1708474095.668818 5 milliseconds Interest sent : /v=1708474079916/seg=256
+1708474098.082472 9 milliseconds  Sending data /v=1708474079916/seg=257
+1708474095.670255 5 milliseconds Interest sent : /v=1708474079916/seg=258
+1708474098.082372 9 milliseconds  Sending data /v=1708474079916/seg=258
+1708474095.670296 5 milliseconds Interest sent : /v=1708474079916/seg=259
+1708474098.081982 9 milliseconds  Sending data /v=1708474079916/seg=259
+1708474095.672128 5 milliseconds Interest sent : /v=1708474079916/seg=260
+1708474098.081895 9 milliseconds  Sending data /v=1708474079916/seg=260
+1708474099.449919 10 milliseconds  Sending data /v=1708474079916/seg=260
+1708474095.672584 5 milliseconds Interest sent : /v=1708474079916/seg=261
+1708474098.088920 9 milliseconds  Sending data /v=1708474079916/seg=261
+1708474099.450018 10 milliseconds  Sending data /v=1708474079916/seg=261
+1708474095.673211 5 milliseconds Interest sent : /v=1708474079916/seg=262
+1708474098.089859 9 milliseconds  Sending data /v=1708474079916/seg=262
+1708474099.450112 10 milliseconds  Sending data /v=1708474079916/seg=262
+1708474095.673254 5 milliseconds Interest sent : /v=1708474079916/seg=263
+1708474098.089425 9 milliseconds  Sending data /v=1708474079916/seg=263
+1708474099.450206 10 milliseconds  Sending data /v=1708474079916/seg=263
+1708474095.673286 5 milliseconds Interest sent : /v=1708474079916/seg=264
+1708474095.673796 5 milliseconds Interest sent : /v=1708474079916/seg=265
+1708474098.087762 9 milliseconds  Sending data /v=1708474079916/seg=265
+1708474095.677096 5 milliseconds Interest sent : /v=1708474079916/seg=266
+1708474098.087276 9 milliseconds  Sending data /v=1708474079916/seg=266
+1708474099.961364 9 milliseconds Interest sent : /v=1708474079916/seg=267
+1708474099.962445 9 milliseconds Interest sent : /v=1708474079916/seg=268
+1708474099.961433 9 milliseconds Interest sent : /v=1708474079916/seg=269
+1708474099.947511 10 milliseconds  Sending data /v=1708474079916/seg=270
+1708474098.077128 9 milliseconds  Sending data /v=1708474079916/seg=272
+1708474096.182087 5 milliseconds Interest sent : /v=1708474079916/seg=273
+1708474098.077367 9 milliseconds  Sending data /v=1708474079916/seg=273
+1708474096.182132 5 milliseconds Interest sent : /v=1708474079916/seg=274
+1708474098.077593 9 milliseconds  Sending data /v=1708474079916/seg=274
+1708474096.182395 5 milliseconds Interest sent : /v=1708474079916/seg=275
+1708474098.077980 9 milliseconds  Sending data /v=1708474079916/seg=275
+1708474096.182439 5 milliseconds Interest sent : /v=1708474079916/seg=276
+1708474096.945518 6 milliseconds  Sending data /v=1708474079916/seg=276
+1708474097.594116 10 milliseconds  Sending data /v=1708474079916/seg=276
+1708474098.078284 9 milliseconds  Sending data /v=1708474079916/seg=276
+1708474097.594470 10 milliseconds  Sending data /v=1708474079916/seg=277
+1708474098.078393 9 milliseconds  Sending data /v=1708474079916/seg=277
+1708474097.594776 10 milliseconds  Sending data /v=1708474079916/seg=278
+1708474098.078493 9 milliseconds  Sending data /v=1708474079916/seg=278
+1708474096.186544 5 milliseconds Interest sent : /v=1708474079916/seg=279
+1708474097.035641 7 milliseconds  Sending data /v=1708474079916/seg=279
+1708474098.078741 9 milliseconds  Sending data /v=1708474079916/seg=279
+1708474090.592909 16 milliseconds  Sending data /v=1708474079916/seg=28
+1708474096.227988 5 milliseconds Interest sent : /v=1708474079916/seg=280
+1708474096.474524 5 milliseconds  Sending data /v=1708474079916/seg=280
+1708474098.078844 9 milliseconds  Sending data /v=1708474079916/seg=280
+1708474096.449807 5 milliseconds Interest sent : /v=1708474079916/seg=281
+1708474098.079178 9 milliseconds  Sending data /v=1708474079916/seg=281
+1708474096.449834 5 milliseconds Interest sent : /v=1708474079916/seg=282
+1708474098.079269 9 milliseconds  Sending data /v=1708474079916/seg=282
+1708474098.079533 9 milliseconds  Sending data /v=1708474079916/seg=283
+1708474098.079871 9 milliseconds  Sending data /v=1708474079916/seg=284
+1708474096.470919 5 milliseconds Interest sent : /v=1708474079916/seg=285
+1708474098.080159 9 milliseconds  Sending data /v=1708474079916/seg=285
+1708474096.665034 6 milliseconds Interest sent : /v=1708474079916/seg=286
+1708474097.156208 8 milliseconds  Sending data /v=1708474079916/seg=286
+1708474098.080396 9 milliseconds  Sending data /v=1708474079916/seg=286
+1708474096.665944 6 milliseconds Interest sent : /v=1708474079916/seg=287
+1708474098.080503 9 milliseconds  Sending data /v=1708474079916/seg=287
+1708474096.684760 6 milliseconds Interest sent : /v=1708474079916/seg=288
+1708474097.157486 8 milliseconds  Sending data /v=1708474079916/seg=289
+1708474097.157812 8 milliseconds  Sending data /v=1708474079916/seg=290
+1708474096.819231 6 milliseconds Interest sent : /v=1708474079916/seg=291
+1708474097.158188 8 milliseconds  Sending data /v=1708474079916/seg=291
+1708474096.884935 6 milliseconds Interest sent : /v=1708474079916/seg=292
+1708474097.158578 8 milliseconds  Sending data /v=1708474079916/seg=292
+1708474097.594584 10 milliseconds  Sending data /v=1708474079916/seg=293
+1708474099.373401 10 milliseconds  Sending data /v=1708474079916/seg=293
+1708474096.914192 7 milliseconds Interest sent : /v=1708474079916/seg=295
+1708474096.943334 6 milliseconds  Sending data /v=1708474079916/seg=295
+1708474096.943849 6 milliseconds  Sending data /v=1708474079916/seg=296
+1708474096.944195 6 milliseconds  Sending data /v=1708474079916/seg=297
+1708474096.944637 6 milliseconds  Sending data /v=1708474079916/seg=298
+1708474096.947129 6 milliseconds  Sending data /v=1708474079916/seg=299
+1708474099.377131 10 milliseconds  Sending data /v=1708474079916/seg=299
+1708474099.449301 10 milliseconds  Sending data /v=1708474079916/seg=300
+1708474099.449408 10 milliseconds  Sending data /v=1708474079916/seg=301
+1708474100.596833 9 milliseconds  Sending data /v=1708474079916/seg=301
+1708474099.449517 10 milliseconds  Sending data /v=1708474079916/seg=302
+1708474096.933364 6 milliseconds Interest sent : /v=1708474079916/seg=303
+1708474099.449620 10 milliseconds  Sending data /v=1708474079916/seg=303
+1708474096.933475 6 milliseconds Interest sent : /v=1708474079916/seg=304
+1708474099.449721 10 milliseconds  Sending data /v=1708474079916/seg=304
+1708474099.449825 10 milliseconds  Sending data /v=1708474079916/seg=305
+1708474096.949211 7 milliseconds Interest sent : /v=1708474079916/seg=310
+1708474100.564126 9 milliseconds Interest sent : /v=1708474079916/seg=312
+1708474100.564208 9 milliseconds Interest sent : /v=1708474079916/seg=313
+1708474100.564174 9 milliseconds Interest sent : /v=1708474079916/seg=314
+1708474097.139217 8 milliseconds Interest sent : /v=1708474079916/seg=317
+1708474099.450299 10 milliseconds  Sending data /v=1708474079916/seg=317
+1708474100.597160 9 milliseconds  Sending data /v=1708474079916/seg=317
+1708474099.450564 10 milliseconds  Sending data /v=1708474079916/seg=318
+1708474100.597279 9 milliseconds  Sending data /v=1708474079916/seg=318
+1708474097.144622 8 milliseconds Interest sent : /v=1708474079916/seg=319
+1708474099.450663 10 milliseconds  Sending data /v=1708474079916/seg=319
+1708474100.597391 9 milliseconds  Sending data /v=1708474079916/seg=319
+1708474097.144702 8 milliseconds Interest sent : /v=1708474079916/seg=320
+1708474099.450758 10 milliseconds  Sending data /v=1708474079916/seg=320
+1708474100.597500 9 milliseconds  Sending data /v=1708474079916/seg=320
+1708474097.165108 8 milliseconds Interest sent : /v=1708474079916/seg=321
+1708474099.450851 10 milliseconds  Sending data /v=1708474079916/seg=321
+1708474100.597613 9 milliseconds  Sending data /v=1708474079916/seg=321
+1708474099.450958 10 milliseconds  Sending data /v=1708474079916/seg=322
+1708474100.597723 9 milliseconds  Sending data /v=1708474079916/seg=322
+1708474099.451047 10 milliseconds  Sending data /v=1708474079916/seg=323
+1708474100.597832 9 milliseconds  Sending data /v=1708474079916/seg=324
+1708474102.228759 10 milliseconds  Sending data /v=1708474079916/seg=324
+1708474098.080602 9 milliseconds  Sending data /v=1708474079916/seg=325
+1708474098.084952 9 milliseconds  Sending data /v=1708474079916/seg=325
+1708474100.598064 9 milliseconds  Sending data /v=1708474079916/seg=325
+1708474098.081493 9 milliseconds  Sending data /v=1708474079916/seg=326
+1708474098.085152 9 milliseconds  Sending data /v=1708474079916/seg=326
+1708474098.081599 9 milliseconds  Sending data /v=1708474079916/seg=327
+1708474098.085353 9 milliseconds  Sending data /v=1708474079916/seg=327
+1708474098.081699 9 milliseconds  Sending data /v=1708474079916/seg=328
+1708474098.085402 9 milliseconds  Sending data /v=1708474079916/seg=328
+1708474098.081798 9 milliseconds  Sending data /v=1708474079916/seg=329
+1708474098.085450 9 milliseconds  Sending data /v=1708474079916/seg=329
+1708474098.082889 9 milliseconds  Sending data /v=1708474079916/seg=330
+1708474098.085567 9 milliseconds  Sending data /v=1708474079916/seg=330
+1708474098.082996 9 milliseconds  Sending data /v=1708474079916/seg=331
+1708474098.085687 9 milliseconds  Sending data /v=1708474079916/seg=331
+1708474100.917648 9 milliseconds Interest sent : /v=1708474079916/seg=332
+1708474100.917587 9 milliseconds Interest sent : /v=1708474079916/seg=333
+1708474100.917520 9 milliseconds Interest sent : /v=1708474079916/seg=334
+1708474105.471399 11 milliseconds  Sending data /v=1708474079916/seg=334
+1708474100.917454 9 milliseconds Interest sent : /v=1708474079916/seg=335
+1708474105.471268 11 milliseconds  Sending data /v=1708474079916/seg=335
+1708474100.917834 9 milliseconds Interest sent : /v=1708474079916/seg=336
+1708474105.471621 11 milliseconds  Sending data /v=1708474079916/seg=336
+1708474100.917772 9 milliseconds Interest sent : /v=1708474079916/seg=337
+1708474105.471534 11 milliseconds  Sending data /v=1708474079916/seg=337
+1708474100.917711 9 milliseconds Interest sent : /v=1708474079916/seg=338
+1708474105.471704 11 milliseconds  Sending data /v=1708474079916/seg=338
+1708474097.604809 9 milliseconds Interest sent : /v=1708474079916/seg=339
+1708474097.604854 9 milliseconds Interest sent : /v=1708474079916/seg=340
+1708474097.605957 9 milliseconds Interest sent : /v=1708474079916/seg=341
+1708474097.606733 9 milliseconds Interest sent : /v=1708474079916/seg=342
+1708474104.748718 9 milliseconds  Sending data /v=1708474079916/seg=342
+1708474097.607910 9 milliseconds Interest sent : /v=1708474079916/seg=343
+1708474104.720444 9 milliseconds  Sending data /v=1708474079916/seg=343
+1708474097.608972 9 milliseconds Interest sent : /v=1708474079916/seg=344
+1708474104.720358 9 milliseconds  Sending data /v=1708474079916/seg=344
+1708474097.610057 9 milliseconds Interest sent : /v=1708474079916/seg=345
+1708474097.611068 9 milliseconds Interest sent : /v=1708474079916/seg=346
+1708474097.612167 9 milliseconds Interest sent : /v=1708474079916/seg=347
+1708474097.613538 9 milliseconds Interest sent : /v=1708474079916/seg=348
+1708474101.206244 9 milliseconds  Sending data /v=1708474079916/seg=348
+1708474097.614100 9 milliseconds Interest sent : /v=1708474079916/seg=349
+1708474101.206469 9 milliseconds  Sending data /v=1708474079916/seg=349
+1708474097.615182 9 milliseconds Interest sent : /v=1708474079916/seg=350
+1708474101.206727 9 milliseconds  Sending data /v=1708474079916/seg=350
+1708474097.618654 9 milliseconds Interest sent : /v=1708474079916/seg=351
+1708474101.206817 9 milliseconds  Sending data /v=1708474079916/seg=351
+1708474097.618947 9 milliseconds Interest sent : /v=1708474079916/seg=352
+1708474101.206910 9 milliseconds  Sending data /v=1708474079916/seg=352
+1708474104.185278 8 milliseconds  Sending data /v=1708474079916/seg=352
+1708474097.619815 9 milliseconds Interest sent : /v=1708474079916/seg=353
+1708474101.207005 9 milliseconds  Sending data /v=1708474079916/seg=353
+1708474104.185403 8 milliseconds  Sending data /v=1708474079916/seg=353
+1708474097.620313 9 milliseconds Interest sent : /v=1708474079916/seg=354
+1708474101.207113 9 milliseconds  Sending data /v=1708474079916/seg=354
+1708474104.185511 8 milliseconds  Sending data /v=1708474079916/seg=354
+1708474097.621633 9 milliseconds Interest sent : /v=1708474079916/seg=355
+1708474101.207217 9 milliseconds  Sending data /v=1708474079916/seg=355
+1708474104.185606 8 milliseconds  Sending data /v=1708474079916/seg=355
+1708474097.622828 9 milliseconds Interest sent : /v=1708474079916/seg=356
+1708474101.208463 9 milliseconds  Sending data /v=1708474079916/seg=356
+1708474104.186065 8 milliseconds  Sending data /v=1708474079916/seg=356
+1708474097.623317 9 milliseconds Interest sent : /v=1708474079916/seg=357
+1708474101.208611 9 milliseconds  Sending data /v=1708474079916/seg=357
+1708474104.186385 8 milliseconds  Sending data /v=1708474079916/seg=357
+1708474097.684576 9 milliseconds Interest sent : /v=1708474079916/seg=358
+1708474097.702821 9 milliseconds Interest sent : /v=1708474079916/seg=359
+1708474101.741891 9 milliseconds Interest sent : /v=1708474079916/seg=359
+1708474097.702945 9 milliseconds Interest sent : /v=1708474079916/seg=360
+1708474101.741963 9 milliseconds Interest sent : /v=1708474079916/seg=360
+1708474108.559885 9 milliseconds  Sending data /v=1708474079916/seg=360
+1708474098.074292 9 milliseconds Interest sent : /v=1708474079916/seg=361
+1708474102.220178 8 milliseconds Interest sent : /v=1708474079916/seg=361
+1708474108.560022 9 milliseconds  Sending data /v=1708474079916/seg=361
+1708474098.074454 9 milliseconds Interest sent : /v=1708474079916/seg=362
+1708474102.220220 8 milliseconds Interest sent : /v=1708474079916/seg=362
+1708474108.560132 9 milliseconds  Sending data /v=1708474079916/seg=362
+1708474098.074810 9 milliseconds Interest sent : /v=1708474079916/seg=363
+1708474108.560352 9 milliseconds  Sending data /v=1708474079916/seg=363
+1708474098.074853 9 milliseconds Interest sent : /v=1708474079916/seg=364
+1708474108.560464 9 milliseconds  Sending data /v=1708474079916/seg=364
+1708474098.076823 9 milliseconds Interest sent : /v=1708474079916/seg=365
+1708474108.560563 9 milliseconds  Sending data /v=1708474079916/seg=365
+1708474098.076955 9 milliseconds Interest sent : /v=1708474079916/seg=366
+1708474108.560749 9 milliseconds  Sending data /v=1708474079916/seg=366
+1708474098.076995 9 milliseconds Interest sent : /v=1708474079916/seg=367
+1708474098.078233 9 milliseconds Interest sent : /v=1708474079916/seg=368
+1708474098.079128 9 milliseconds Interest sent : /v=1708474079916/seg=369
+1708474098.079647 9 milliseconds Interest sent : /v=1708474079916/seg=370
+1708474098.079691 9 milliseconds Interest sent : /v=1708474079916/seg=371
+1708474098.080104 9 milliseconds Interest sent : /v=1708474079916/seg=372
+1708474098.724643 9 milliseconds Interest sent : /v=1708474079916/seg=373
+1708474102.228884 10 milliseconds  Sending data /v=1708474079916/seg=374
+1708474099.964304 9 milliseconds Interest sent : /v=1708474079916/seg=375
+1708474099.964620 9 milliseconds Interest sent : /v=1708474079916/seg=376
+1708474102.229506 10 milliseconds  Sending data /v=1708474079916/seg=376
+1708474099.964903 9 milliseconds Interest sent : /v=1708474079916/seg=377
+1708474102.229395 10 milliseconds  Sending data /v=1708474079916/seg=377
+1708474099.965276 9 milliseconds Interest sent : /v=1708474079916/seg=378
+1708474102.229284 10 milliseconds  Sending data /v=1708474079916/seg=378
+1708474099.969806 9 milliseconds Interest sent : /v=1708474079916/seg=379
+1708474102.228999 10 milliseconds  Sending data /v=1708474079916/seg=379
+1708474099.969897 9 milliseconds Interest sent : /v=1708474079916/seg=380
+1708474102.229608 10 milliseconds  Sending data /v=1708474079916/seg=380
+1708474099.970798 9 milliseconds Interest sent : /v=1708474079916/seg=383
+1708474099.971756 9 milliseconds Interest sent : /v=1708474079916/seg=384
+1708474107.070626 8 milliseconds  Sending data /v=1708474079916/seg=384
+1708474099.972680 9 milliseconds Interest sent : /v=1708474079916/seg=385
+1708474107.070799 8 milliseconds  Sending data /v=1708474079916/seg=385
+1708474099.972754 9 milliseconds Interest sent : /v=1708474079916/seg=386
+1708474103.749589 8 milliseconds  Sending data /v=1708474079916/seg=386
+1708474107.071051 8 milliseconds  Sending data /v=1708474079916/seg=386
+1708474099.972869 9 milliseconds Interest sent : /v=1708474079916/seg=387
+1708474103.749685 8 milliseconds  Sending data /v=1708474079916/seg=387
+1708474107.071410 8 milliseconds  Sending data /v=1708474079916/seg=387
+1708474103.749786 8 milliseconds  Sending data /v=1708474079916/seg=388
+1708474103.749878 8 milliseconds  Sending data /v=1708474079916/seg=389
+1708474103.749991 8 milliseconds  Sending data /v=1708474079916/seg=390
+1708474103.750088 8 milliseconds  Sending data /v=1708474079916/seg=391
+1708474103.750167 8 milliseconds  Sending data /v=1708474079916/seg=392
+1708474103.750227 8 milliseconds  Sending data /v=1708474079916/seg=393
+1708474103.750291 8 milliseconds  Sending data /v=1708474079916/seg=394
+1708474101.223981 9 milliseconds  Sending data /v=1708474079916/seg=395
+1708474101.232821 9 milliseconds  Sending data /v=1708474079916/seg=396
+1708474105.471061 11 milliseconds  Sending data /v=1708474079916/seg=396
+1708474101.194434 9 milliseconds  Sending data /v=1708474079916/seg=397
+1708474105.471148 11 milliseconds  Sending data /v=1708474079916/seg=397
+1708474101.194843 9 milliseconds  Sending data /v=1708474079916/seg=398
+1708474101.275552 9 milliseconds  Sending data /v=1708474079916/seg=398
+1708474102.232857 10 milliseconds  Sending data /v=1708474079916/seg=398
+1708474099.974944 9 milliseconds Interest sent : /v=1708474079916/seg=399
+1708474102.225211 10 milliseconds  Sending data /v=1708474079916/seg=399
+1708474102.233098 10 milliseconds  Sending data /v=1708474079916/seg=399
+1708474099.975201 9 milliseconds Interest sent : /v=1708474079916/seg=400
+1708474102.225538 10 milliseconds  Sending data /v=1708474079916/seg=400
+1708474102.233285 10 milliseconds  Sending data /v=1708474079916/seg=400
+1708474099.975239 9 milliseconds Interest sent : /v=1708474079916/seg=401
+1708474102.225649 10 milliseconds  Sending data /v=1708474079916/seg=401
+1708474102.233352 10 milliseconds  Sending data /v=1708474079916/seg=401
+1708474099.975723 9 milliseconds Interest sent : /v=1708474079916/seg=402
+1708474102.225752 10 milliseconds  Sending data /v=1708474079916/seg=402
+1708474102.233597 10 milliseconds  Sending data /v=1708474079916/seg=402
+1708474100.596981 9 milliseconds Interest sent : /v=1708474079916/seg=403
+1708474102.226191 10 milliseconds  Sending data /v=1708474079916/seg=403
+1708474102.233761 10 milliseconds  Sending data /v=1708474079916/seg=403
+1708474100.597947 9 milliseconds Interest sent : /v=1708474079916/seg=404
+1708474102.226331 10 milliseconds  Sending data /v=1708474079916/seg=404
+1708474102.233825 10 milliseconds  Sending data /v=1708474079916/seg=404
+1708474100.597989 9 milliseconds Interest sent : /v=1708474079916/seg=405
+1708474102.226428 10 milliseconds  Sending data /v=1708474079916/seg=405
+1708474102.233881 10 milliseconds  Sending data /v=1708474079916/seg=405
+1708474100.598022 9 milliseconds Interest sent : /v=1708474079916/seg=406
+1708474102.233940 10 milliseconds  Sending data /v=1708474079916/seg=406
+1708474100.598167 9 milliseconds Interest sent : /v=1708474079916/seg=407
+1708474102.234093 10 milliseconds  Sending data /v=1708474079916/seg=407
+1708474100.598213 9 milliseconds Interest sent : /v=1708474079916/seg=408
+1708474102.234159 10 milliseconds  Sending data /v=1708474079916/seg=408
+1708474100.598247 9 milliseconds Interest sent : /v=1708474079916/seg=409
+1708474102.226806 10 milliseconds  Sending data /v=1708474079916/seg=409
+1708474100.665165 9 milliseconds Interest sent : /v=1708474079916/seg=410
+1708474100.665231 9 milliseconds Interest sent : /v=1708474079916/seg=411
+1708474100.917311 9 milliseconds Interest sent : /v=1708474079916/seg=412
+1708474100.917388 9 milliseconds Interest sent : /v=1708474079916/seg=413
+1708474101.199986 9 milliseconds Interest sent : /v=1708474079916/seg=416
+1708474101.200681 9 milliseconds Interest sent : /v=1708474079916/seg=417
+1708474105.672519 7 milliseconds  Sending data /v=1708474079916/seg=417
+1708474101.200747 9 milliseconds Interest sent : /v=1708474079916/seg=418
+1708474102.226937 10 milliseconds  Sending data /v=1708474079916/seg=418
+1708474102.228277 10 milliseconds  Sending data /v=1708474079916/seg=418
+1708474101.200915 9 milliseconds Interest sent : /v=1708474079916/seg=419
+1708474102.227215 10 milliseconds  Sending data /v=1708474079916/seg=419
+1708474102.228397 10 milliseconds  Sending data /v=1708474079916/seg=419
+1708474101.201031 9 milliseconds Interest sent : /v=1708474079916/seg=420
+1708474102.227434 10 milliseconds  Sending data /v=1708474079916/seg=420
+1708474101.201142 9 milliseconds Interest sent : /v=1708474079916/seg=421
+1708474105.673453 7 milliseconds  Sending data /v=1708474079916/seg=421
+1708474101.201770 9 milliseconds Interest sent : /v=1708474079916/seg=422
+1708474102.228531 10 milliseconds  Sending data /v=1708474079916/seg=422
+1708474101.202307 9 milliseconds Interest sent : /v=1708474079916/seg=423
+1708474102.228650 10 milliseconds  Sending data /v=1708474079916/seg=423
+1708474101.205464 9 milliseconds Interest sent : /v=1708474079916/seg=424
+1708474102.229929 10 milliseconds  Sending data /v=1708474079916/seg=424
+1708474101.205566 9 milliseconds Interest sent : /v=1708474079916/seg=425
+1708474102.230306 10 milliseconds  Sending data /v=1708474079916/seg=425
+1708474101.205634 9 milliseconds Interest sent : /v=1708474079916/seg=426
+1708474102.235555 10 milliseconds  Sending data /v=1708474079916/seg=426
+1708474101.205712 9 milliseconds Interest sent : /v=1708474079916/seg=427
+1708474102.236051 10 milliseconds  Sending data /v=1708474079916/seg=427
+1708474101.752015 9 milliseconds Interest sent : /v=1708474079916/seg=428
+1708474101.753182 9 milliseconds Interest sent : /v=1708474079916/seg=429
+1708474103.007965 8 milliseconds  Sending data /v=1708474079916/seg=429
+1708474101.753255 9 milliseconds Interest sent : /v=1708474079916/seg=430
+1708474103.008186 8 milliseconds  Sending data /v=1708474079916/seg=431
+1708474103.008728 8 milliseconds  Sending data /v=1708474079916/seg=436
+1708474103.009392 8 milliseconds  Sending data /v=1708474079916/seg=438
+1708474106.428431 8 milliseconds  Sending data /v=1708474079916/seg=440
+1708474106.428618 8 milliseconds  Sending data /v=1708474079916/seg=441
+1708474101.765429 9 milliseconds Interest sent : /v=1708474079916/seg=442
+1708474106.428722 8 milliseconds  Sending data /v=1708474079916/seg=442
+1708474106.428816 8 milliseconds  Sending data /v=1708474079916/seg=443
+1708474106.428920 8 milliseconds  Sending data /v=1708474079916/seg=444
+1708474106.429025 8 milliseconds  Sending data /v=1708474079916/seg=445
+1708474101.768194 9 milliseconds Interest sent : /v=1708474079916/seg=446
+1708474106.429118 8 milliseconds  Sending data /v=1708474079916/seg=446
+1708474101.768943 9 milliseconds Interest sent : /v=1708474079916/seg=447
+1708474106.429218 8 milliseconds  Sending data /v=1708474079916/seg=447
+1708474101.769123 9 milliseconds Interest sent : /v=1708474079916/seg=448
+1708474106.429313 8 milliseconds  Sending data /v=1708474079916/seg=448
+1708474101.769598 9 milliseconds Interest sent : /v=1708474079916/seg=449
+1708474106.429407 8 milliseconds  Sending data /v=1708474079916/seg=449
+1708474101.769821 9 milliseconds Interest sent : /v=1708474079916/seg=450
+1708474106.429505 8 milliseconds  Sending data /v=1708474079916/seg=450
+1708474101.769869 9 milliseconds Interest sent : /v=1708474079916/seg=451
+1708474106.429595 8 milliseconds  Sending data /v=1708474079916/seg=451
+1708474101.770768 9 milliseconds Interest sent : /v=1708474079916/seg=452
+1708474106.429693 8 milliseconds  Sending data /v=1708474079916/seg=452
+1708474101.770848 9 milliseconds Interest sent : /v=1708474079916/seg=453
+1708474106.429782 8 milliseconds  Sending data /v=1708474079916/seg=453
+1708474101.770884 9 milliseconds Interest sent : /v=1708474079916/seg=454
+1708474106.429880 8 milliseconds  Sending data /v=1708474079916/seg=454
+1708474101.771011 9 milliseconds Interest sent : /v=1708474079916/seg=455
+1708474106.430384 8 milliseconds  Sending data /v=1708474079916/seg=455
+1708474101.771049 9 milliseconds Interest sent : /v=1708474079916/seg=456
+1708474106.430672 8 milliseconds  Sending data /v=1708474079916/seg=456
+1708474101.771185 9 milliseconds Interest sent : /v=1708474079916/seg=457
+1708474106.430799 8 milliseconds  Sending data /v=1708474079916/seg=457
+1708474101.771366 9 milliseconds Interest sent : /v=1708474079916/seg=458
+1708474106.430911 8 milliseconds  Sending data /v=1708474079916/seg=458
+1708474101.771577 9 milliseconds Interest sent : /v=1708474079916/seg=459
+1708474106.431016 8 milliseconds  Sending data /v=1708474079916/seg=459
+1708474101.771708 9 milliseconds Interest sent : /v=1708474079916/seg=460
+1708474106.431117 8 milliseconds  Sending data /v=1708474079916/seg=460
+1708474101.771970 9 milliseconds Interest sent : /v=1708474079916/seg=461
+1708474106.431214 8 milliseconds  Sending data /v=1708474079916/seg=461
+1708474101.772085 9 milliseconds Interest sent : /v=1708474079916/seg=462
+1708474106.431469 8 milliseconds  Sending data /v=1708474079916/seg=462
+1708474101.791218 9 milliseconds Interest sent : /v=1708474079916/seg=463
+1708474106.431669 8 milliseconds  Sending data /v=1708474079916/seg=463
+1708474101.791357 9 milliseconds Interest sent : /v=1708474079916/seg=464
+1708474102.220420 8 milliseconds Interest sent : /v=1708474079916/seg=465
+1708474102.220799 8 milliseconds Interest sent : /v=1708474079916/seg=466
+1708474102.220840 8 milliseconds Interest sent : /v=1708474079916/seg=467
+1708474102.221311 8 milliseconds Interest sent : /v=1708474079916/seg=468
+1708474103.510083 8 milliseconds  Sending data /v=1708474079916/seg=468
+1708474102.225851 8 milliseconds Interest sent : /v=1708474079916/seg=469
+1708474103.510170 8 milliseconds  Sending data /v=1708474079916/seg=469
+1708474102.226290 8 milliseconds Interest sent : /v=1708474079916/seg=470
+1708474103.510226 8 milliseconds  Sending data /v=1708474079916/seg=470
+1708474102.226514 8 milliseconds Interest sent : /v=1708474079916/seg=471
+1708474103.510285 8 milliseconds  Sending data /v=1708474079916/seg=471
+1708474102.226546 8 milliseconds Interest sent : /v=1708474079916/seg=472
+1708474102.226581 8 milliseconds Interest sent : /v=1708474079916/seg=473
+1708474102.226608 8 milliseconds Interest sent : /v=1708474079916/seg=474
+1708474102.226892 8 milliseconds Interest sent : /v=1708474079916/seg=475
+1708474102.230401 8 milliseconds Interest sent : /v=1708474079916/seg=476
+1708474102.233157 8 milliseconds Interest sent : /v=1708474079916/seg=477
+1708474102.233219 8 milliseconds Interest sent : /v=1708474079916/seg=478
+1708474102.234915 8 milliseconds Interest sent : /v=1708474079916/seg=479
+1708474102.235727 8 milliseconds Interest sent : /v=1708474079916/seg=480
+1708474102.293405 8 milliseconds Interest sent : /v=1708474079916/seg=481
+1708474102.293691 8 milliseconds Interest sent : /v=1708474079916/seg=482
+1708474102.370456 8 milliseconds Interest sent : /v=1708474079916/seg=483
+1708474103.157587 8 milliseconds Interest sent : /v=1708474079916/seg=490
+1708474103.158295 8 milliseconds Interest sent : /v=1708474079916/seg=491
+1708474103.160405 8 milliseconds Interest sent : /v=1708474079916/seg=492
+1708474103.161394 8 milliseconds Interest sent : /v=1708474079916/seg=493
+1708474103.162435 8 milliseconds Interest sent : /v=1708474079916/seg=494
+1708474103.164531 8 milliseconds Interest sent : /v=1708474079916/seg=496
+1708474103.165513 8 milliseconds Interest sent : /v=1708474079916/seg=497
+1708474103.167211 8 milliseconds Interest sent : /v=1708474079916/seg=498
+1708474108.272718 8 milliseconds  Sending data /v=1708474079916/seg=537
+1708474103.329497 8 milliseconds Interest sent : /v=1708474079916/seg=538
+1708474103.330479 8 milliseconds Interest sent : /v=1708474079916/seg=539
+1708474103.935540 8 milliseconds Interest sent : /v=1708474079916/seg=540
+1708474104.181932 8 milliseconds Interest sent : /v=1708474079916/seg=542
+1708474108.244031 8 milliseconds  Sending data /v=1708474079916/seg=542
+1708474104.182884 8 milliseconds Interest sent : /v=1708474079916/seg=543
+1708474108.244614 8 milliseconds  Sending data /v=1708474079916/seg=543
+1708474104.183777 8 milliseconds Interest sent : /v=1708474079916/seg=544
+1708474108.247247 8 milliseconds  Sending data /v=1708474079916/seg=544
+1708474104.184878 8 milliseconds Interest sent : /v=1708474079916/seg=545
+1708474108.250423 8 milliseconds  Sending data /v=1708474079916/seg=545
+1708474104.185697 8 milliseconds Interest sent : /v=1708474079916/seg=546
+1708474108.383595 8 milliseconds  Sending data /v=1708474079916/seg=546
+1708474104.186774 8 milliseconds Interest sent : /v=1708474079916/seg=547
+1708474108.383756 8 milliseconds  Sending data /v=1708474079916/seg=547
+1708474104.187843 8 milliseconds Interest sent : /v=1708474079916/seg=548
+1708474108.383913 8 milliseconds  Sending data /v=1708474079916/seg=548
+1708474104.188868 8 milliseconds Interest sent : /v=1708474079916/seg=549
+1708474108.559476 9 milliseconds  Sending data /v=1708474079916/seg=549
+1708474104.189936 8 milliseconds Interest sent : /v=1708474079916/seg=550
+1708474104.191150 8 milliseconds Interest sent : /v=1708474079916/seg=551
+1708474104.193199 8 milliseconds Interest sent : /v=1708474079916/seg=552
+1708474104.194075 8 milliseconds Interest sent : /v=1708474079916/seg=553
+1708474104.196286 8 milliseconds Interest sent : /v=1708474079916/seg=554
+1708474104.196326 8 milliseconds Interest sent : /v=1708474079916/seg=555
+1708474104.197397 8 milliseconds Interest sent : /v=1708474079916/seg=556
+1708474104.198723 8 milliseconds Interest sent : /v=1708474079916/seg=557
+1708474104.200478 8 milliseconds Interest sent : /v=1708474079916/seg=558
+1708474104.202635 8 milliseconds Interest sent : /v=1708474079916/seg=559
+1708474104.202949 8 milliseconds Interest sent : /v=1708474079916/seg=560
+1708474104.203932 8 milliseconds Interest sent : /v=1708474079916/seg=561
+1708474104.636970 8 milliseconds Interest sent : /v=1708474079916/seg=570
+1708474104.899991 9 milliseconds Interest sent : /v=1708474079916/seg=583
+1708474104.900740 9 milliseconds Interest sent : /v=1708474079916/seg=584
+1708474104.901565 9 milliseconds Interest sent : /v=1708474079916/seg=585
+1708474104.902720 9 milliseconds Interest sent : /v=1708474079916/seg=586
+1708474104.904225 9 milliseconds Interest sent : /v=1708474079916/seg=587
+1708474105.034273 8 milliseconds Interest sent : /v=1708474079916/seg=609
+1708474105.034861 8 milliseconds Interest sent : /v=1708474079916/seg=610
+1708474105.035202 8 milliseconds Interest sent : /v=1708474079916/seg=611
+1708474105.037551 8 milliseconds Interest sent : /v=1708474079916/seg=612
+1708474105.861982 8 milliseconds Interest sent : /v=1708474079916/seg=631
+1708474105.862023 8 milliseconds Interest sent : /v=1708474079916/seg=632
+1708474105.863050 8 milliseconds Interest sent : /v=1708474079916/seg=633
+1708474105.865130 8 milliseconds Interest sent : /v=1708474079916/seg=634
+1708474105.866067 8 milliseconds Interest sent : /v=1708474079916/seg=635
+1708474105.999319 8 milliseconds Interest sent : /v=1708474079916/seg=654
+1708474105.999445 8 milliseconds Interest sent : /v=1708474079916/seg=655
+1708474106.000085 8 milliseconds Interest sent : /v=1708474079916/seg=656
+1708474106.000444 8 milliseconds Interest sent : /v=1708474079916/seg=657
+1708474106.001746 8 milliseconds Interest sent : /v=1708474079916/seg=659
+1708474106.002683 8 milliseconds Interest sent : /v=1708474079916/seg=660
+1708474106.006724 8 milliseconds Interest sent : /v=1708474079916/seg=661
+1708474106.010776 8 milliseconds Interest sent : /v=1708474079916/seg=662
+1708474106.010858 8 milliseconds Interest sent : /v=1708474079916/seg=663
+1708474106.010935 8 milliseconds Interest sent : /v=1708474079916/seg=664
+1708474106.012493 8 milliseconds Interest sent : /v=1708474079916/seg=665
+1708474106.012533 8 milliseconds Interest sent : /v=1708474079916/seg=666
+1708474106.012557 8 milliseconds Interest sent : /v=1708474079916/seg=667
+1708474106.012789 8 milliseconds Interest sent : /v=1708474079916/seg=668
+1708474106.013126 8 milliseconds Interest sent : /v=1708474079916/seg=669
+1708474106.013500 8 milliseconds Interest sent : /v=1708474079916/seg=670
+1708474106.013770 8 milliseconds Interest sent : /v=1708474079916/seg=671
+1708474106.014099 8 milliseconds Interest sent : /v=1708474079916/seg=672
+1708474106.014437 8 milliseconds Interest sent : /v=1708474079916/seg=673
+1708474106.865768 8 milliseconds Interest sent : /v=1708474079916/seg=689
+1708474106.903949 8 milliseconds Interest sent : /v=1708474079916/seg=709
+1708474106.904382 8 milliseconds Interest sent : /v=1708474079916/seg=710
+1708474106.904572 8 milliseconds Interest sent : /v=1708474079916/seg=711
+1708474106.904852 8 milliseconds Interest sent : /v=1708474079916/seg=712
+1708474106.904894 8 milliseconds Interest sent : /v=1708474079916/seg=713
+1708474106.905056 8 milliseconds Interest sent : /v=1708474079916/seg=714
+1708474106.916085 8 milliseconds Interest sent : /v=1708474079916/seg=726
+1708474107.052265 8 milliseconds Interest sent : /v=1708474079916/seg=728
+1708474107.052354 8 milliseconds Interest sent : /v=1708474079916/seg=729
+1708474107.052758 8 milliseconds Interest sent : /v=1708474079916/seg=730
+1708474107.052826 8 milliseconds Interest sent : /v=1708474079916/seg=731
+1708474107.057330 8 milliseconds Interest sent : /v=1708474079916/seg=734
+1708474107.057726 8 milliseconds Interest sent : /v=1708474079916/seg=735
+1708474107.058046 8 milliseconds Interest sent : /v=1708474079916/seg=736
+1708474107.058237 8 milliseconds Interest sent : /v=1708474079916/seg=737
+1708474107.058719 8 milliseconds Interest sent : /v=1708474079916/seg=738
+1708474107.059069 8 milliseconds Interest sent : /v=1708474079916/seg=739
+1708474091.564052 16 milliseconds  Sending data /v=1708474079916/seg=74
+1708474107.059272 8 milliseconds Interest sent : /v=1708474079916/seg=740
+1708474107.059666 8 milliseconds Interest sent : /v=1708474079916/seg=741
+1708474091.564179 16 milliseconds  Sending data /v=1708474079916/seg=75
+1708474107.142390 8 milliseconds Interest sent : /v=1708474079916/seg=752
+1708474107.237523 8 milliseconds Interest sent : /v=1708474079916/seg=753
+1708474107.239111 8 milliseconds Interest sent : /v=1708474079916/seg=754
+1708474107.364785 8 milliseconds Interest sent : /v=1708474079916/seg=755
+1708474107.364944 8 milliseconds Interest sent : /v=1708474079916/seg=756
+1708474108.196274 9 milliseconds Interest sent : /v=1708474079916/seg=757
+1708474112.023161 9 milliseconds  Sending data /v=1708474079916/seg=759
+1708474112.023389 9 milliseconds  Sending data /v=1708474079916/seg=760
+1708474112.051364 9 milliseconds  Sending data /v=1708474079916/seg=761
+1708474112.051547 9 milliseconds  Sending data /v=1708474079916/seg=762
+1708474112.051740 9 milliseconds  Sending data /v=1708474079916/seg=763
+1708474112.127574 9 milliseconds  Sending data /v=1708474079916/seg=764
+1708474112.127759 9 milliseconds  Sending data /v=1708474079916/seg=765
+1708474111.539739 9 milliseconds  Sending data /v=1708474079916/seg=766
+1708474111.539958 9 milliseconds  Sending data /v=1708474079916/seg=767
+1708474111.540060 9 milliseconds  Sending data /v=1708474079916/seg=768
+1708474111.590051 9 milliseconds  Sending data /v=1708474079916/seg=769
+1708474091.784973 20 milliseconds  Sending data /v=1708474079916/seg=77
+1708474111.657532 9 milliseconds  Sending data /v=1708474079916/seg=779
+1708474111.720261 9 milliseconds  Sending data /v=1708474079916/seg=780
+1708474111.735601 9 milliseconds  Sending data /v=1708474079916/seg=781
+1708474111.735764 9 milliseconds  Sending data /v=1708474079916/seg=782
+1708474111.774299 9 milliseconds  Sending data /v=1708474079916/seg=783
+1708474113.701411 9 milliseconds  Sending data /v=1708474079916/seg=799
+1708474113.701504 9 milliseconds  Sending data /v=1708474079916/seg=800
+1708474113.701590 9 milliseconds  Sending data /v=1708474079916/seg=801
+1708474112.260508 9 milliseconds Interest sent : /v=1708474079916/seg=805
+1708474112.260596 9 milliseconds Interest sent : /v=1708474079916/seg=806
+1708474112.261927 9 milliseconds Interest sent : /v=1708474079916/seg=807
+1708474112.263576 9 milliseconds Interest sent : /v=1708474079916/seg=808
+1708474112.264739 9 milliseconds Interest sent : /v=1708474079916/seg=809
+1708474112.264808 9 milliseconds Interest sent : /v=1708474079916/seg=810
+1708474112.265405 9 milliseconds Interest sent : /v=1708474079916/seg=811
+1708474112.265909 9 milliseconds Interest sent : /v=1708474079916/seg=812
+1708474112.266364 9 milliseconds Interest sent : /v=1708474079916/seg=813
+1708474108.266564 9 milliseconds Interest sent : /v=1708474079916/seg=814
+1708474108.267300 9 milliseconds Interest sent : /v=1708474079916/seg=815
+1708474112.280158 9 milliseconds  Sending data /v=1708474079916/seg=815
+1708474108.269426 9 milliseconds Interest sent : /v=1708474079916/seg=816
+1708474112.280283 9 milliseconds  Sending data /v=1708474079916/seg=816
+1708474108.273173 9 milliseconds Interest sent : /v=1708474079916/seg=817
+1708474112.280396 9 milliseconds  Sending data /v=1708474079916/seg=817
+1708474108.273533 9 milliseconds Interest sent : /v=1708474079916/seg=818
+1708474110.315541 9 milliseconds  Sending data /v=1708474079916/seg=818
+1708474112.283824 9 milliseconds  Sending data /v=1708474079916/seg=819
+1708474112.284119 9 milliseconds  Sending data /v=1708474079916/seg=820
+1708474091.911946 19 milliseconds  Sending data /v=1708474079916/seg=83
+1708474112.280623 9 milliseconds  Sending data /v=1708474079916/seg=834
+1708474112.280785 9 milliseconds  Sending data /v=1708474079916/seg=835
+1708474112.280898 9 milliseconds  Sending data /v=1708474079916/seg=836
+1708474112.281076 9 milliseconds  Sending data /v=1708474079916/seg=837
+1708474112.281188 9 milliseconds  Sending data /v=1708474079916/seg=838
+1708474112.281294 9 milliseconds  Sending data /v=1708474079916/seg=839
+1708474091.911886 19 milliseconds  Sending data /v=1708474079916/seg=84
+1708474112.281393 9 milliseconds  Sending data /v=1708474079916/seg=840
+1708474112.281492 9 milliseconds  Sending data /v=1708474079916/seg=841
+1708474112.281595 9 milliseconds  Sending data /v=1708474079916/seg=842
+1708474112.281697 9 milliseconds  Sending data /v=1708474079916/seg=843
+1708474112.281800 9 milliseconds  Sending data /v=1708474079916/seg=844
+1708474112.282126 9 milliseconds  Sending data /v=1708474079916/seg=845
+1708474112.282235 9 milliseconds  Sending data /v=1708474079916/seg=846
+1708474112.282331 9 milliseconds  Sending data /v=1708474079916/seg=847
+1708474112.282439 9 milliseconds  Sending data /v=1708474079916/seg=848
+1708474112.282535 9 milliseconds  Sending data /v=1708474079916/seg=849
+1708474091.911826 19 milliseconds  Sending data /v=1708474079916/seg=85
+1708474112.282643 9 milliseconds  Sending data /v=1708474079916/seg=850
+1708474112.282752 9 milliseconds  Sending data /v=1708474079916/seg=851
+1708474112.282855 9 milliseconds  Sending data /v=1708474079916/seg=852
+1708474112.283054 9 milliseconds  Sending data /v=1708474079916/seg=853
+1708474112.283167 9 milliseconds  Sending data /v=1708474079916/seg=854
+1708474112.283350 9 milliseconds  Sending data /v=1708474079916/seg=855
+1708474112.283443 9 milliseconds  Sending data /v=1708474079916/seg=856
+1708474112.283531 9 milliseconds  Sending data /v=1708474079916/seg=857
+1708474112.283635 9 milliseconds  Sending data /v=1708474079916/seg=858
+1708474112.283729 9 milliseconds  Sending data /v=1708474079916/seg=859
+1708474091.911696 19 milliseconds  Sending data /v=1708474079916/seg=86
+1708474112.283925 9 milliseconds  Sending data /v=1708474079916/seg=860
+1708474112.284224 9 milliseconds  Sending data /v=1708474079916/seg=861
+1708474112.284385 9 milliseconds  Sending data /v=1708474079916/seg=862
+1708474112.284538 9 milliseconds  Sending data /v=1708474079916/seg=867
+1708474112.284642 9 milliseconds  Sending data /v=1708474079916/seg=868
+1708474091.912159 19 milliseconds  Sending data /v=1708474079916/seg=88
+1708474091.912103 19 milliseconds  Sending data /v=1708474079916/seg=89
+1708474091.912051 19 milliseconds  Sending data /v=1708474079916/seg=90
+1708474109.694940 9 milliseconds Interest sent : /v=1708474079916/seg=900
+1708474113.694986 9 milliseconds Interest sent : /v=1708474079916/seg=900
+1708474109.743873 8 milliseconds Interest sent : /v=1708474079916/seg=901
+1708474113.771931 9 milliseconds Interest sent : /v=1708474079916/seg=901
+1708474109.743917 8 milliseconds Interest sent : /v=1708474079916/seg=902
+1708474113.771987 9 milliseconds Interest sent : /v=1708474079916/seg=902
+1708474113.772007 9 milliseconds Interest sent : /v=1708474079916/seg=903
+1708474113.780641 9 milliseconds Interest sent : /v=1708474079916/seg=904
+1708474109.751241 8 milliseconds Interest sent : /v=1708474079916/seg=905
+1708474113.780732 9 milliseconds Interest sent : /v=1708474079916/seg=905
+1708474109.756423 8 milliseconds Interest sent : /v=1708474079916/seg=906
+1708474113.781096 9 milliseconds Interest sent : /v=1708474079916/seg=906
+1708474109.756482 8 milliseconds Interest sent : /v=1708474079916/seg=907
+1708474113.781131 9 milliseconds Interest sent : /v=1708474079916/seg=907
+1708474109.758440 8 milliseconds Interest sent : /v=1708474079916/seg=908
+1708474113.781153 9 milliseconds Interest sent : /v=1708474079916/seg=908
+1708474109.760581 8 milliseconds Interest sent : /v=1708474079916/seg=909
+1708474113.781200 9 milliseconds Interest sent : /v=1708474079916/seg=909
+1708474091.911996 19 milliseconds  Sending data /v=1708474079916/seg=91
+1708474109.760631 8 milliseconds Interest sent : /v=1708474079916/seg=910
+1708474113.781254 9 milliseconds Interest sent : /v=1708474079916/seg=910
+1708474109.761679 8 milliseconds Interest sent : /v=1708474079916/seg=911
+1708474113.781312 9 milliseconds Interest sent : /v=1708474079916/seg=911
+1708474109.762443 8 milliseconds Interest sent : /v=1708474079916/seg=912
+1708474113.781362 9 milliseconds Interest sent : /v=1708474079916/seg=912
+1708474109.762621 8 milliseconds Interest sent : /v=1708474079916/seg=913
+1708474113.781406 9 milliseconds Interest sent : /v=1708474079916/seg=913
+1708474109.763711 8 milliseconds Interest sent : /v=1708474079916/seg=914
+1708474113.781566 9 milliseconds Interest sent : /v=1708474079916/seg=914
+1708474109.764777 8 milliseconds Interest sent : /v=1708474079916/seg=915
+1708474113.781590 9 milliseconds Interest sent : /v=1708474079916/seg=915
+1708474109.765847 8 milliseconds Interest sent : /v=1708474079916/seg=916
+1708474113.781609 9 milliseconds Interest sent : /v=1708474079916/seg=916
+1708474109.766024 8 milliseconds Interest sent : /v=1708474079916/seg=917
+1708474113.781626 9 milliseconds Interest sent : /v=1708474079916/seg=917
+1708474109.767921 8 milliseconds Interest sent : /v=1708474079916/seg=918
+1708474113.781647 9 milliseconds Interest sent : /v=1708474079916/seg=918
+1708474109.768998 8 milliseconds Interest sent : /v=1708474079916/seg=919
+1708474113.781667 9 milliseconds Interest sent : /v=1708474079916/seg=919
+1708474091.912282 19 milliseconds  Sending data /v=1708474079916/seg=92
+1708474109.769038 8 milliseconds Interest sent : /v=1708474079916/seg=920
+1708474113.781687 9 milliseconds Interest sent : /v=1708474079916/seg=920
+1708474109.772026 8 milliseconds Interest sent : /v=1708474079916/seg=921
+1708474113.781707 9 milliseconds Interest sent : /v=1708474079916/seg=921
+1708474109.773093 8 milliseconds Interest sent : /v=1708474079916/seg=922
+1708474113.781728 9 milliseconds Interest sent : /v=1708474079916/seg=922
+1708474109.773155 8 milliseconds Interest sent : /v=1708474079916/seg=923
+1708474113.781937 9 milliseconds Interest sent : /v=1708474079916/seg=923
+1708474109.834160 8 milliseconds Interest sent : /v=1708474079916/seg=924
+1708474113.781985 9 milliseconds Interest sent : /v=1708474079916/seg=924
+1708474109.834401 8 milliseconds Interest sent : /v=1708474079916/seg=925
+1708474113.782017 9 milliseconds Interest sent : /v=1708474079916/seg=925
+1708474109.834445 8 milliseconds Interest sent : /v=1708474079916/seg=926
+1708474113.782042 9 milliseconds Interest sent : /v=1708474079916/seg=926
+1708474109.834588 8 milliseconds Interest sent : /v=1708474079916/seg=927
+1708474113.782100 9 milliseconds Interest sent : /v=1708474079916/seg=927﻿708474089.939493 10 milliseconds Interest sent : /32=metadata
+1708474111.509784 9 milliseconds Interest sent : /v=1708474079916/seg=928
+1708474111.509819 9 milliseconds Interest sent : /v=1708474079916/seg=929
+1708474091.912218 19 milliseconds  Sending data /v=1708474079916/seg=93
+1708474111.509838 9 milliseconds Interest sent : /v=1708474079916/seg=930
+1708474111.511651 9 milliseconds Interest sent : /v=1708474079916/seg=931
+1708474111.511681 9 milliseconds Interest sent : /v=1708474079916/seg=932
+1708474111.512468 9 milliseconds Interest sent : /v=1708474079916/seg=933
+1708474111.512602 9 milliseconds Interest sent : /v=1708474079916/seg=934
+1708474111.514558 9 milliseconds Interest sent : /v=1708474079916/seg=935
+1708474111.514890 9 milliseconds Interest sent : /v=1708474079916/seg=936
+1708474111.517883 9 milliseconds Interest sent : /v=1708474079916/seg=937
+1708474111.518327 9 milliseconds Interest sent : /v=1708474079916/seg=938
+1708474111.518390 9 milliseconds Interest sent : /v=1708474079916/seg=939
+1708474091.912539 19 milliseconds  Sending data /v=1708474079916/seg=94
+1708474111.518720 9 milliseconds Interest sent : /v=1708474079916/seg=940
+1708474111.518915 9 milliseconds Interest sent : /v=1708474079916/seg=941
+1708474111.519750 9 milliseconds Interest sent : /v=1708474079916/seg=942
+1708474111.519864 9 milliseconds Interest sent : /v=1708474079916/seg=943
+1708474111.521014 9 milliseconds Interest sent : /v=1708474079916/seg=944
+1708474091.912477 19 milliseconds  Sending data /v=1708474079916/seg=95
+1708474091.912418 19 milliseconds  Sending data /v=1708474079916/seg=96
+1708474091.912348 19 milliseconds  Sending data /v=1708474079916/seg=97
