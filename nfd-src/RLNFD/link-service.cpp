@@ -46,7 +46,7 @@ LinkService::setFaceAndTransport(Face& face, Transport& transport) noexcept
 void
 LinkService::sendInterest(const Interest& interest)
 {
-  NFD_LOG_INFO("****************** SendInterest Function called ********************" << this->getFace()->getLinkType() << " interest name " << interest.getName());
+  NFD_LOG_INFO("****************** SendInterest Function called ********************" << this->getFace()->getLinkType());
   BOOST_ASSERT(m_transport != nullptr);
   NFD_LOG_FACE_TRACE(__func__);
 
@@ -58,11 +58,18 @@ LinkService::sendInterest(const Interest& interest)
     NFD_LOG_INFO("Average packet count interest outgoing " << nOutInterests);
     return;
   }
- 
+  // apply suppression algorithm if sending through multicast face
+  // check if the interest is already in flight
+  if (m_multicastSuppression.interestInflight(interest)) {
+    NFD_LOG_INFO ("Interest drop, Interest " <<  interest.getName() << " is in flight, drop the forwarding");
+    return; // need to catch this, what should be the behaviour after dropping the interest?? 
+  }
+  // wait for suppression time before forwarding
+  // check if another interest is overheard during the wait, if heard, cancle the forwarding
   auto entry_name = interest.getName();
+  // nm.printNameTreeSuppressionTime(entry_name.getPrefix(-1).toUri());
   entry_name.appendNumber(0);
   
-  // auto suppressionTime = time::milliseconds(0);
   auto suppressionTime = m_multicastSuppression.getDelayTimer(interest.getName(), 'i');
   NFD_LOG_INFO ("Interest " <<  interest.getName() << " not in flight, waiting" << suppressionTime << "before forwarding");
 
@@ -72,7 +79,7 @@ LinkService::sendInterest(const Interest& interest)
     doSendInterest(interest);
     NFD_LOG_INFO("Wait time " << suppressionTime  << "Analysis History Interest sent finally: " << interest.getName());
     NFD_LOG_INFO("Average packet count interest outgoing " << nOutInterests);
-    m_multicastSuppression.recordInterest(interest, true, suppressionTime);
+    m_multicastSuppression.recordInterest(interest, true);
     // m_mutlicastSuppression.insertAnalysisHistory(interest, suppressionTime);
 
     if (m_scheduledEntry.count(entry_name) > 0)
@@ -82,57 +89,6 @@ LinkService::sendInterest(const Interest& interest)
   NFD_LOG_INFO("Event Id " << eventId << " for " << entry_name);
   m_scheduledEntry.emplace(entry_name, eventId);
 }
-
-
-
-
-
-// void
-// LinkService::sendInterest(const Interest& interest)
-// {
-//   NFD_LOG_INFO("****************** SendInterest Function called ********************" << this->getFace()->getLinkType());
-//   BOOST_ASSERT(m_transport != nullptr);
-//   NFD_LOG_FACE_TRACE(__func__);
-
-//   if (this->getFace()->getLinkType() != ndn::nfd::LINK_TYPE_MULTI_ACCESS)
-//   {
-//     NFD_LOG_INFO("Interest Counter increased not LINK_TYPE_MULTI_ACCESS");
-//     ++this->nOutInterests;
-//     doSendInterest(interest);
-//     NFD_LOG_INFO("Average packet count interest outgoing " << nOutInterests);
-//     return;
-//   }
-//   // apply suppression algorithm if sending through multicast face
-//   // check if the interest is already in flight
-//   if (m_multicastSuppression.interestInflight(interest)) {
-//     NFD_LOG_INFO ("Interest drop, Interest " <<  interest.getName() << " is in flight, drop the forwarding");
-//     return; // need to catch this, what should be the behaviour after dropping the interest?? 
-//   }
-//   // wait for suppression time before forwarding
-//   // check if another interest is overheard during the wait, if heard, cancle the forwarding
-//   auto entry_name = interest.getName();
-//   // nm.printNameTreeSuppressionTime(entry_name.getPrefix(-1).toUri());
-//   entry_name.appendNumber(0);
-  
-//   auto suppressionTime = m_multicastSuppression.getDelayTimer(interest.getName(), 'i');
-//   NFD_LOG_INFO ("Interest " <<  interest.getName() << " not in flight, waiting" << suppressionTime << "before forwarding");
-
-//   NFD_LOG_INFO("Interest Counter increased  LINK_TYPE_MULTI_ACCESS");
-//   auto eventId = getScheduler().schedule(suppressionTime, [this, interest, entry_name, suppressionTime] {
-//     ++this->nOutInterests;
-//     doSendInterest(interest);
-//     NFD_LOG_INFO("Wait time " << suppressionTime  << "Analysis History Interest sent finally: " << interest.getName());
-//     NFD_LOG_INFO("Average packet count interest outgoing " << nOutInterests);
-//     m_multicastSuppression.recordInterest(interest, true, suppressionTime);
-//     // m_mutlicastSuppression.insertAnalysisHistory(interest, suppressionTime);
-
-//     if (m_scheduledEntry.count(entry_name) > 0)
-//       m_scheduledEntry.erase(entry_name);
-//   });
-
-//   NFD_LOG_INFO("Event Id " << eventId << " for " << entry_name);
-//   m_scheduledEntry.emplace(entry_name, eventId);
-// }
 
 void
 LinkService::sendData(const Data& data)
@@ -149,20 +105,22 @@ LinkService::sendData(const Data& data)
     return;
   }
   auto suppressionTime = m_multicastSuppression.getDelayTimer(data.getName(), 'd');
-  // auto suppressionTime = time::milliseconds(15);
   auto entry_name = data.getName();
   entry_name.appendNumber(1);
   NFD_LOG_INFO ("Data " <<  data.getName() << " not in flight, waiting " << suppressionTime << " ms before forwarding");
-  NFD_LOG_INFO("The scheduler is called for the entry name " << entry_name);
-  auto eventId = getScheduler().schedule(suppressionTime, [this, data, entry_name, suppressionTime] {
 
-    ++this->nOutData;
-    doSendData(data);
-    NFD_LOG_INFO("Wait Time for " << suppressionTime << " Analysis History Data sent finally:" << data.getName());
-    NFD_LOG_INFO("Average packet count data outgoing " << nOutData);
-    m_multicastSuppression.recordData(data, true, suppressionTime);
-    if(m_scheduledEntry.count(entry_name) > 0)
-        m_scheduledEntry.erase(entry_name);
+  
+  NFD_LOG_INFO("The scheduler is called for the entry name " << entry_name);
+  auto eventId = getScheduler().schedule(suppressionTime, [this, data, entry_name] {
+
+  NFD_LOG_INFO ("Data " <<  data.getName() << " before sending 70 second");
+  ++this->nOutData;
+  doSendData(data);
+  NFD_LOG_INFO ("Data " <<  data.getName() << " sent, finally");
+  NFD_LOG_INFO("Average packet count data outgoing " << nOutData);
+  m_multicastSuppression.recordData(data, true);
+  if(m_scheduledEntry.count(entry_name) > 0)
+      m_scheduledEntry.erase(entry_name);
 
   });
   m_scheduledEntry.emplace(entry_name, eventId);
@@ -197,7 +155,7 @@ LinkService::cancelIfSchdeuled(Name name, int type)
 void
 LinkService::receiveInterest(const Interest& interest, const EndpointId& endpoint)
 {
-  NFD_LOG_INFO("****************** receiveInterest Function called ********************" << this->getFace()->getLinkType() << " interest name " << interest.getName());
+  NFD_LOG_INFO("****************** receiveInterest Function called ********************" << this->getFace()->getLinkType());
   NFD_LOG_FACE_TRACE(__func__);
   // record multicast interest
   if (this->getFace()->getLinkType() == ndn::nfd::LINK_TYPE_MULTI_ACCESS)
@@ -206,9 +164,14 @@ LinkService::receiveInterest(const Interest& interest, const EndpointId& endpoin
     NFD_LOG_INFO("Multicast interest received: " << interest.getName());
     // check if a same interest is scheduled, if so drop it
     if (cancelIfSchdeuled(interest.getName(), 0)) // checks whether the packet is in measurement table and drops if its already there
-      NDN_LOG_INFO("Interest drop by suppression, with name " << interest.getName() << " overheard, duplicate forwarding dropped");
-    auto suppressionTime = m_multicastSuppression.getDelayTimer(interest.getName(), 'i');
-    m_multicastSuppression.recordInterest(interest, false, suppressionTime);
+      NDN_LOG_INFO("Interest drop, Interest " << interest.getName() << " overheard, duplicate forwarding dropped");
+    else{
+      NDN_LOG_INFO("Recording not scheduled interest");
+      m_multicastSuppression.recordInterest(interest, false);
+    }
+      
+    // Bidhya coz once the interest is dropped, its not added in measurement table only forwarded interest by that node are recorded in measurment table
+    // why is it recorded in the measurement table
   }
   ++this->nInInterests;
   NFD_LOG_INFO("Average packet count interest outgoing " << nInInterests);
@@ -218,19 +181,21 @@ LinkService::receiveInterest(const Interest& interest, const EndpointId& endpoin
 void
 LinkService::receiveData(const Data& data, const EndpointId& endpoint)
 {
-  NFD_LOG_INFO("****************** receiveData Function called ********************" << data.getName());
+  NFD_LOG_INFO("****************** receiveData Function called ********************");
   NFD_LOG_FACE_TRACE(__func__);
   // record multicast Data received
   if (this->getFace()->getLinkType() == ndn::nfd::LINK_TYPE_MULTI_ACCESS)
   {
     NFD_LOG_INFO("Multicast data received: " << data.getName());
     if (cancelIfSchdeuled(data.getName(), 1))
-      NDN_LOG_INFO("Data drop by suppression, with name " << data.getName() << " overheard, duplicate forwarding dropped");
+      NDN_LOG_INFO("Data drop, Data " << data.getName() << " overheard, duplicate forwarding dropped");
+    else
+      m_multicastSuppression.recordData(data, false);
+
 
     if (cancelIfSchdeuled(data.getName(), 0)) // also can drop interest if shceduled for this data
-      NDN_LOG_INFO("Interest drop by suppression, with name " << data.getName() << " overheard, drop the corresponding scheduled interest"); 
-    auto suppressionTime = m_multicastSuppression.getDelayTimer(data.getName(), 'd');
-    m_multicastSuppression.recordData(data, false, suppressionTime);
+      NDN_LOG_INFO("Interest drop, Data " << data.getName() << " overheard, drop the corresponding scheduled interest"); 
+    
   }
 
   ++this->nInData;

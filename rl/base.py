@@ -10,6 +10,7 @@ import tensorflow as tf
 from pathlib import Path as p
 
 
+
 fifo_suppression_value = 'fifo_suppression_value' #we don't care if this file is chaged because we write to this file
 fifo_object_details = 'fifo_object_details'
 num = 0
@@ -60,7 +61,7 @@ if __name__ == "__main__":
   counter = 1 
   agent = Agent()
   score = 0
-  
+
   
   load_checkpoint = True
 
@@ -82,6 +83,7 @@ if __name__ == "__main__":
       prefix_name = '/'.join(states_values[1].split('/')[:-1])
       states_values[1] = prefix_name
       result = '/'.join(states_values) 
+      print("Result ", states_dict)
       embedding_start = time.time()
       embeddings = generate_positional_embedding(result)
       embedding_end = time.time()
@@ -109,11 +111,11 @@ if __name__ == "__main__":
           done = 0
           previous_state = experience_dict[prefix_name]
           current_state = new_embeddings
-          # train_start = time.time()
+          train_start = time.time()
           # agent.learn(previous_state, reward, current_state, done)
 
-          # train_end = time.time()
-          # print("The learning time taken is: ", (train_end - train_start)*1000)
+          train_end = time.time()
+          print("The learning time taken is: ", (train_end - train_start)*1000)
           reward_history.append(score)
           avg_score = np.mean(reward_history[-100:])
 
@@ -122,7 +124,6 @@ if __name__ == "__main__":
       end_time = time.time()
       print("Execution period ", (end_time - start_time)*1000)
       experience_dict[prefix_name] = new_embeddings
-      print("Counter for Rl being called", counter)
       counter = counter + 1
       
       # if counter == 8000:

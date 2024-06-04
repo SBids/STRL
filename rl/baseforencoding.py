@@ -16,13 +16,6 @@ num = 0
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_learning_curve(x, scores, figure_file):
-  running_avg = np.zeros(len(scores))
-  for i in range(len(running_avg)):
-    running_avg[i] = np.mean(scores[max(0, i-100):(i+1)])
-  plt.plot(x, running_avg)
-  plt.title('Running average of previous 100 scores')
-  plt.savefig(figure_file)
 def generate_positional_embedding(text):
   alphabet = string.ascii_lowercase
   digits = string.digits
@@ -40,13 +33,13 @@ def generate_positional_embedding(text):
   embedding = embedding[:embedding_dimension]
   return(embedding)
 
-
 experience_dict = {}
 seg_dict = {}
 done = 0
 learn_count = 1
 reward_history = []
 score = 0
+
 
 if __name__ == "__main__":
   print("Printing main function")
@@ -60,6 +53,9 @@ if __name__ == "__main__":
   counter = 1 
   agent = Agent()
   score = 0
+  previous_time_i = 0
+  previous_time_d = 0
+  previous_dc = 1
   
   
   # load_checkpoint = False
@@ -78,56 +74,69 @@ if __name__ == "__main__":
         break
       states_string = bytes.decode() 
       states_dict = json.loads(states_string)   
-      print(states_dict)
       states_values = [str(value) for value in states_dict.values()]
-      prefix_name = '/'.join(states_values[1].split('/')[:-1])
-      print("Prefix name", prefix_name)
-      states_values[1] = prefix_name
+      # prefix_name = '/'.join(states_values[1].split('/')[:-1])
+      # states_values[1] = prefix_name
+
       result = '/'.join(states_values) 
       result = result.split(" ")[0]
-      print("Result", result)
-      embedding_start = time.time()
+      prefix_name_with_packet = states_dict['name']+'/'+states_dict['type']
       embeddings = generate_positional_embedding(result)
-      embedding_end = time.time()
-      print("The embedding time is ", (embedding_end - embedding_start)*1000)
       new_embeddings = tf.convert_to_tensor([embeddings], dtype=tf.float32)
       # action = 5
    
-      action = round(agent.choose_action(new_embeddings),2)
+      action = int(agent.choose_action(new_embeddings))
       # seg_dict[states_dict["seg_name"]] = action     
       write_pipe = os.open(fifo_object_details, os.O_WRONLY)  
       response = "{}".format(action)
       os.write(write_pipe, response.encode())
       os.close(write_pipe)
-      if prefix_name in experience_dict.keys():
+      
+      print("State with action", states_dict, action)
+      
+      # if(counter > 1):
+      if prefix_name_with_packet in experience_dict.keys():
         dc = states_dict["ewma_dc"]
-        reward = 26 - float(dc)*2
+        isForwarded = states_dict["wasForwarded"]
+        forwarded_status = 0
+        dc_diff = 0
+        if(isForwarded == "false"):
+          forwarded_status = 2
+        if(int(dc) == previous_dc == 1):
+          dc_diff = 5
+        elif(int(dc) == previous_dc):
+          dc_diff = -int(dc)
+        elif(int(dc) > previous_dc):
+          dc_diff = - 2*(int(dc))
+        else:
+          (previous_dc - int(previous_dc)) 
+        reward = forwarded_status + dc_diff
         score += reward
         
         done = 0
-        previous_state = experience_dict[prefix_name]
+        previous_state = experience_dict[prefix_name_with_packet]
+       
         current_state = new_embeddings
         agent.learn(previous_state, reward, current_state, done)
 
         reward_history.append(score)
+        print("State with action", states_dict, action , " Reward ", reward)
         # avg_score = np.mean(reward_history[-100:])
-
-     
-
       end_time = time.time()
-      print("Execution period ", (end_time - start_time)*1000)
-      experience_dict[prefix_name] = new_embeddings
+      print("Execution period ", (end_time - start_time)*1000, " Counter ", counter)
+      experience_dict[prefix_name_with_packet] = new_embeddings
       counter = counter + 1
+      previous_dc = float(states_dict["ewma_dc"])
+      
       # print("Counter in RL: ", counter, states_dict["seg_name"])
       
       # if counter == 2000:
       #   print("Saving the model weight")
       #   agent.save_models()
+
+
      
     except Exception as e:
       print ("exception: ", e)
 
    
-
-  
-  

@@ -58,11 +58,18 @@ LinkService::sendInterest(const Interest& interest)
     NFD_LOG_INFO("Average packet count interest outgoing " << nOutInterests);
     return;
   }
- 
+  // apply suppression algorithm if sending through multicast face
+  // check if the interest is already in flight
+  if (m_multicastSuppression.interestInflight(interest)) {
+    NFD_LOG_INFO ("Interest drop, Interest " <<  interest.getName() << " is in flight, drop the forwarding");
+    return; // need to catch this, what should be the behaviour after dropping the interest?? 
+  }
+  // wait for suppression time before forwarding
+  // check if another interest is overheard during the wait, if heard, cancle the forwarding
   auto entry_name = interest.getName();
+  // nm.printNameTreeSuppressionTime(entry_name.getPrefix(-1).toUri());
   entry_name.appendNumber(0);
   
-  // auto suppressionTime = time::milliseconds(0);
   auto suppressionTime = m_multicastSuppression.getDelayTimer(interest.getName(), 'i');
   NFD_LOG_INFO ("Interest " <<  interest.getName() << " not in flight, waiting" << suppressionTime << "before forwarding");
 
@@ -149,10 +156,11 @@ LinkService::sendData(const Data& data)
     return;
   }
   auto suppressionTime = m_multicastSuppression.getDelayTimer(data.getName(), 'd');
-  // auto suppressionTime = time::milliseconds(15);
   auto entry_name = data.getName();
   entry_name.appendNumber(1);
   NFD_LOG_INFO ("Data " <<  data.getName() << " not in flight, waiting " << suppressionTime << " ms before forwarding");
+
+  
   NFD_LOG_INFO("The scheduler is called for the entry name " << entry_name);
   auto eventId = getScheduler().schedule(suppressionTime, [this, data, entry_name, suppressionTime] {
 
