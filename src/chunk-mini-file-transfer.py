@@ -13,14 +13,14 @@ import shutil
 import os
 import sys
 import itertools
+import threading
 
-_F_NAME = "transfer_"
+_F_NAME = "transfer1"
 parent_folder = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 rl_path = os.path.join(parent_folder, 'rl/basefor1.py')
-
 all_nodes = {
     "sta1": {"position": (10,10,0)},
-    "sta2": {"position": (30,10,0)},
+    "sta2": {"position": (60,60,0)},
     "sta3": {"position": (30,30,0)},
     "sta4": {"position": (10,30,0)},
     "sta5": {"position": (0,0,0)},
@@ -36,13 +36,14 @@ all_nodes = {
 accessPoint = {"ap1": {"position": (20,20,0), "range": 100, "mode":'g'}}
 
 def get_first_n_items(dictionary, n):
+    print("Dict", dict(itertools.islice(dictionary.items(), n)))
     return dict(itertools.islice(dictionary.items(), n))
 
 def sendFile(node, prefix, file):  
     fname = file.split("/")[-1].split(".")[0]
     publised_under = "{}/{}".format(prefix, fname)
     info ("Publishing file: {}, under name: {} \n".format(fname, publised_under))
-    cmd = 'ndnputchunks -s 100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    cmd = 'ndnputchunks -s 800 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
     node.cmd(cmd)
     sleep(10)
 
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     for ap in accessPoint:
         _ap.append(topo.addAccessPoint(ap, **accessPoint[ap]))
 
-    optsforlink1  = {'bw':100, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
+    optsforlink1  = {'bw':54, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
 
     for s in _s:
         topo.addLink(s, _ap[0], **optsforlink1) #adds a wireless link between the current station s and the first access point (_ap[0]).
@@ -117,7 +118,6 @@ if __name__ == '__main__':
         sleep(2)
         print(c.name)
         c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
-        print(rl_path, c.name)
         sleep(5) #changed to 5 from 10
         print("The consumer slept for 5 ms") 
     for p in producers:
@@ -127,16 +127,20 @@ if __name__ == '__main__':
 
         sleep(5)#changed to 5 from 10
         print("The producer slept for 10 ms before sending the file !!!")
-        sendFile(p, producers_prefix[p.name], testFile)
-
-
-    for c in consumers:
-        # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
-        for p in producers:
-            receiveFile(c, producers_prefix[p.name], p.name+".txt")
-
-    MiniNDNWifiCLI(ndnwifi.net)
+        
     
+    for i in range(1, 100):
+        for p in producers:
+            sendFile(p, producers_prefix[p.name], testFile)
+
+        for c in consumers:
+            # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
+        
+            for p in producers:
+                receiveFile(c, producers_prefix[p.name], p.name+".txt")
+                print("REceived first file")
+    MiniNDNWifiCLI(ndnwifi.net)
+        
  
     # sleep(60)
     ndnwifi.stop()

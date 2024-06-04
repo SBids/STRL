@@ -6,15 +6,16 @@ import os
 
 import tensorflow.keras as keras
 
-chkpt_dir_path = "/home/dh127-pc4/workspace/STRL/rl/model150"
+
+chkpt_dir_path = "/home/bidhya/Desktop/STRL/rl/model5"
 
 class Agent:
-  def __init__(self, gamma=0.98, n_actions=1, chkpt_dir=chkpt_dir_path):
+  def __init__(self, gamma=0.99, n_actions=1, chkpt_dir=chkpt_dir_path):
     self.gamma = gamma
     self.n_actions = n_actions
     self.actor_critic = ActorCriticNetwork(n_actions=n_actions)
 
-    self.actor_critic.compile(optimizer=Adam(learning_rate=0.001))
+    self.actor_critic.compile(optimizer=Adam(learning_rate=0.0003))
     self.checkpoint_file = os.path.join(chkpt_dir_path, '_actor_critic_')
     # exception:  'Agent' object has no attribute 'checkpointfile'
 
@@ -22,11 +23,10 @@ class Agent:
     _, mu, sigma = self.actor_critic(observation)
     action_distribution = tfp.distributions.Normal(loc=mu, scale=sigma)
     raw_action = action_distribution.sample()
-    action = tf.clip_by_value(raw_action, clip_value_min=15.0, clip_value_max=80.00)
+    action = tf.clip_by_value(raw_action, clip_value_min=0.0, clip_value_max=4000.00)
     log_prob = action_distribution.log_prob(action)
     self.action = action
     action = action[0]
-    print("Action !!!", action.numpy()[0])
     return action.numpy()[0]
 
   def get_reward(self, ewma_duplicate_count, rtt, srtt, alpha=0.5, beta=0.4, gamma=0.3):
@@ -40,6 +40,7 @@ class Agent:
     state = tf.convert_to_tensor([state], dtype=tf.float32)
     reward = tf.convert_to_tensor([reward], dtype=tf.float32)    
     done = tf.convert_to_tensor([int(done)], dtype=tf.float32)    
+
     '''
     GradientTape is a TensorFlow tool that is used for automatic differentiation. 
     It allows you to record operations that are performed on tensors, and then 
@@ -51,8 +52,12 @@ class Agent:
     '''
     with tf.GradientTape() as tape:
       value, mu, sigma = self.actor_critic(state)
+      print("Value from critic ", value)
+      print("mean mu from actor head ", mu)
+      print("sigma standard deviation from actor head ", sigma)
       value_, _, _ = self.actor_critic(state_)
       td_error = reward + self.gamma * value_ * (1 - done) -value
+      print("TD error which is feedback to actor ", td_error)
       advantage = td_error
       dist = tfp.distributions.Normal(loc=mu, scale=sigma)
       log_prob = dist.log_prob(self.action)
@@ -66,11 +71,10 @@ class Agent:
     # for var in self.actor_critic.trainable_variables:
     #   print("Trainable variables", var)
     self.actor_critic.optimizer.apply_gradients(zip(gradients, self.actor_critic.trainable_variables))
-    print("agent is trained")
   
   def save_models(self):
+    print("Saved model!!!", chkpt_dir_path)
     self.actor_critic.save_weights(self.checkpoint_file)
-    print("Saved model!!!")
 
   def load_models(self):
     self.actor_critic.load_weights(self.checkpoint_file)

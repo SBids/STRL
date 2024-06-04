@@ -69,13 +69,15 @@ public:
   // void
   // addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, int rtt, double srtt);
 
-  void addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name);
+  void addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name, char type, time::milliseconds waitTime);
 
   scheduler::EventId&
   getEMAExpiration()
   {
     return this->m_expirationId;
   }
+
+
 
   void
   setEMAExpiration(scheduler::EventId& expirationId)
@@ -98,7 +100,7 @@ public:
   // void
   // updateDelayTime(bool wasForwarded, std::string name, int rtt, double srtt);
   void
-  updateDelayTime(std::string name, std::string seg_name, float duplicateCount);
+  updateDelayTime(std::string name, std::string seg_name, float duplicateCount, time::milliseconds suppression_time, bool wasForwarded, char type);
   // void
   // updateDelayTime(bool wasForwarded);
   double
@@ -130,24 +132,6 @@ private:
 class MulticastSuppression
 {
 public:
-
-
-  // struct AnalysisHistory{
-  //   // time_t interestReceived;
-  //   long long interestSent;
-  //   int suppInterest;
-  //   // time_t dataReceived;
-  //   // time_t dataSent;
-  //   // int suppInterest;
-  //   // int suppData;
-  //   // int interestCounter;
-  //   // // int dataCounter;
-  //   bool interestRemoved;
-  //   // bool dataRemoved
-
-
-  // }
-
   struct ObjectHistory
   {
     int counter = 0;
@@ -155,10 +139,10 @@ public:
   };
 
   void
-  recordInterest(const Interest interest, bool isForwarded = false);
+  recordInterest(const Interest interest, bool isForwarded = false, time::milliseconds suppressionTime = time::milliseconds(0));
 
   void
-  recordData(const Data data, bool isForwarded = false);
+  recordData(const Data data, bool isForwarded = false, time::milliseconds suppressionTime = time::milliseconds(0));
 
   int
   getDuplicateCount(const Name name, char type);
@@ -203,11 +187,11 @@ getRandomTime()
   }
 
 void
-updateMeasurement(Name name, char type);
+updateMeasurement(Name name, char type, time::milliseconds waitTime);
 
 // set interest or data expiration
 void
-setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type);
+setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type, time::milliseconds waitTime);
 
 time::milliseconds
 getDelayTimer(Name name, char type);

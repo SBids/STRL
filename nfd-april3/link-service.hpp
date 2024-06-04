@@ -31,6 +31,7 @@
 #include "common/counter.hpp"
 #include <ndn-cxx/util/scheduler.hpp>
 #include "multicast-suppression.hpp"
+// #include "multicasttest.hpp"
 
 #include "common/global.hpp"
 // #include "common/logger.hpp"
@@ -232,6 +233,7 @@ private:
   Face* m_face;
   Transport* m_transport;
   nfd::face::ams::MulticastSuppression m_multicastSuppression;
+  nfd::face::ams::NameTree nm;
   std::map <ndn::Name, const scheduler::EventId > m_scheduledEntry;
 };
 

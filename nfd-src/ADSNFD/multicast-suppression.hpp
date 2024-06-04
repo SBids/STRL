@@ -35,10 +35,10 @@ class EMAMeasurements
 {
 
 public:
-  EMAMeasurements(double expMovingAverage, int lastDuplicateCount, double suppressionTime);
+  EMAMeasurements(double expMovingAverage, uint8_t lastDuplicateCount, double suppressionTime);
 
   void
-  addUpdateEMA(int duplicateCount, bool wasForwarded);
+  addUpdateEMA(uint8_t duplicateCount, bool wasForwarded);
 
   scheduler::EventId&
   getEMAExpiration()
@@ -78,11 +78,11 @@ private:
   double m_expMovingAverageCurrent;
   double m_currentSuppressionTime;
   scheduler::EventId m_expirationId;
-  int m_lastDuplicateCount;
-  int m_maxDuplicateCount;
+  uint8_t m_lastDuplicateCount;
+  uint8_t m_maxDuplicateCount;
   double m_minSuppressionTime;
   double m_ssthress;
-  int m_ignoreDuplicateRecoring;
+  uint8_t m_ignoreDuplicateRecoring;
 };
 
 
@@ -92,7 +92,7 @@ public:
 
   struct ObjectHistory
   {
-    int counter;
+    uint8_t counter;
     bool isForwarded;
   };
 

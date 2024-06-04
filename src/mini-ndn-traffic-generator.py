@@ -90,7 +90,7 @@ def xl_write():
         print(f"An error occurred while reading the log file or writing Excel file: {e}")
 
 
-for sta_number in range(2, 11):
+for sta_number in range(2, 4):
     log_file_path = f'../../filtered_lines{sta_number}.txt'
     output_excel_path = f'../../data_fetch_time{sta_number}.xlsx'
 

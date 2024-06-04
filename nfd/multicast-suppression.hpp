@@ -19,17 +19,10 @@ namespace ams {
 class _FIFO
 {
 public:
-  
-  // _FIFO(char *fifo_suppression_value, char *fifo_object_details);
-  
-  // void
-  // fifo_handler(const std::string& content);
   double
   fifo_handler(const std::string& content);
-  
-  
-  time::milliseconds 
-  fifo_read();
+  // time::milliseconds 
+  // fifo_read();
 
 };
 
@@ -59,7 +52,6 @@ public:
   
 
 };
-
 class EMAMeasurements
 {
 
@@ -69,13 +61,15 @@ public:
   // void
   // addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, int rtt, double srtt);
 
-  void addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name);
+  void addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name, char type, time::milliseconds waitTime, int rtt);
 
   scheduler::EventId&
   getEMAExpiration()
   {
     return this->m_expirationId;
   }
+
+
 
   void
   setEMAExpiration(scheduler::EventId& expirationId)
@@ -98,15 +92,26 @@ public:
   // void
   // updateDelayTime(bool wasForwarded, std::string name, int rtt, double srtt);
   void
-  updateDelayTime(std::string name, std::string seg_name, int duplicateCount);
+  updateDelayTime(std::string name, std::string seg_name, float duplicateCount, time::milliseconds suppression_time, bool wasForwarded, char type, int rtt);
   // void
   // updateDelayTime(bool wasForwarded);
+  // double
+  // getCurrentSuppressionTime()
+  // {
+  //   return m_currentSuppressionTime;
+  // }
+
   double
-  getCurrentSuppressionTime()
+  getCurrentSuppressionTimeInterest()
   {
-    return m_currentSuppressionTime;
+    return m_currentSuppressionTimeInterest;
   }
 
+  double
+  getCurrentSuppressionTimeData()
+  {
+    return m_currentSuppressionTimeData;
+  }
   double
   getMinimumSuppressionTime()
   {
@@ -117,6 +122,8 @@ private:
   double m_expMovingAveragePrev;
   double m_expMovingAverageCurrent;
   double m_currentSuppressionTime;
+  double m_currentSuppressionTimeInterest;
+  double m_currentSuppressionTimeData;
   scheduler::EventId m_expirationId;
   double m_computedMaxSuppressionTime;
   int m_lastDuplicateCount;
@@ -124,41 +131,27 @@ private:
   double m_minSuppressionTime;
   int ignore;
   _FIFO m_fifo;
+ 
 };
 
 
 class MulticastSuppression
 {
 public:
-
-
-  // struct AnalysisHistory{
-  //   // time_t interestReceived;
-  //   long long interestSent;
-  //   int suppInterest;
-  //   // time_t dataReceived;
-  //   // time_t dataSent;
-  //   // int suppInterest;
-  //   // int suppData;
-  //   // int interestCounter;
-  //   // // int dataCounter;
-  //   bool interestRemoved;
-  //   // bool dataRemoved
-
-
-  // }
-
   struct ObjectHistory
   {
     int counter = 0;
     bool isForwarded = false;
+    long long propagationTime = 0;
+    int rtt = 0;
+    
   };
 
   void
-  recordInterest(const Interest interest, bool isForwarded = false);
+  recordInterest(const Interest interest, bool isForwarded = false, time::milliseconds suppressionTime = time::milliseconds(0));
 
   void
-  recordData(const Data data, bool isForwarded = false);
+  recordData(const Data data, bool isForwarded = false, time::milliseconds suppressionTime = time::milliseconds(0));
 
   int
   getDuplicateCount(const Name name, char type);
@@ -203,11 +196,11 @@ getRandomTime()
   }
 
 void
-updateMeasurement(Name name, char type);
+updateMeasurement(Name name, char type, time::milliseconds waitTime, int rtt);
 
 // set interest or data expiration
 void
-setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type);
+setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type, time::milliseconds waitTime);
 
 time::milliseconds
 getDelayTimer(Name name, char type);
