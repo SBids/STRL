@@ -43,12 +43,15 @@ def sendFile(node, prefix, file):
     publised_under = "{}/{}".format(prefix, fname)
     info ("Publishing file: {}, under name: {} \n".format(fname, publised_under))
     cmd = 'ndnputchunks -s 100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    print(f"Send File: {cmd}")
     node.cmd(cmd)
     sleep(10)
 
-def receiveFile(node, prefix, filename):
-    info ("Fetching file: {} \n".format(filename))
-    cmd = 'ndncatchunks -v -p cubic --log-cwnd log-cwnd --log-rtt log-rtt {}/{} > {} 2> catchunks-{}.log &'.format(prefix, _F_NAME, filename, filename)
+def receiveFile(node, prefix, filename, full_filename):
+    file_prefix = filename.split('.')[0]
+    info ("Fetching file: {} \n".format(full_filename))
+    cmd = 'ndncatchunks -v -p cubic --log-cwnd log-cwnd --log-rtt log-rtt {}/{} > {} 2> catchunks-{}-{}.log &'.format(prefix, file_prefix, full_filename, full_filename, filename)
+    print(f"Received File: {cmd}")
     node.cmd(cmd)
 
 if __name__ == '__main__':
@@ -127,13 +130,34 @@ if __name__ == '__main__':
 
         sleep(5)#changed to 5 from 10
         print("The producer slept for 10 ms before sending the file !!!")
-        sendFile(p, producers_prefix[p.name], testFile)
+        # sendFile(p, producers_prefix[p.name], testFile)
 
 
-    for c in consumers:
-        # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
-        for p in producers:
-            receiveFile(c, producers_prefix[p.name], p.name+".txt")
+    # for c in consumers:
+    #     # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
+    #     for p in producers:
+    #         receiveFile(c, producers_prefix[p.name], p.name+".txt")
+
+    base_path = "/home/bidhya/workspace/STRL/files/"
+    file_list = [
+        "transfer2.dat",
+        "transfer3.dat",
+        "transfer4.dat",
+        "transfer5.dat",
+        "transfer6.dat",
+        "transfer7.dat"
+        
+        ]
+    for file in file_list:
+        producer_0 = producers[0]
+        producer_name = producer_0.name
+
+        sendFile(p, producers_prefix[producer_name], base_path + file)
+
+        for c in consumers:
+            receiveFile(c, producers_prefix[producer_name], file, producer_name + ".txt")
+
+    
 
     MiniNDNWifiCLI(ndnwifi.net)
     
