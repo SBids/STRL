@@ -16,7 +16,7 @@ import itertools
 
 _F_NAME = "transfer_"
 parent_folder = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-rl_path = os.path.join(parent_folder, 'rl/basefor1.py')
+rl_path = os.path.join(parent_folder, 'rl/base_multiple_file.py')
 
 all_nodes = {
     "sta1": {"position": (10,10,0)},
@@ -119,14 +119,21 @@ if __name__ == '__main__':
         Nfdc.registerRoute (c, "/producer", mcast)
         sleep(2)
         print(c.name)
-        c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
+        # c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
+         # Pass single argument to rl_path script
+        arg1 = c.name  # replace with actual argument if needed
+        c.cmd(f"/usr/bin/python {rl_path} {arg1} > reinforcement-{c.name}.log 2>&1 &")
+
         print(rl_path, c.name)
         sleep(5) #changed to 5 from 10
         print("The consumer slept for 5 ms") 
     for p in producers:
         # sleep (1)
         print ("starting producer {}".format(p))
-        p.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, p.name))
+        # p.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, p.name))
+        arg1 = p.name  # replace with actual argument if needed
+        p.cmd(f"/usr/bin/python {rl_path} {arg1} > reinforcement-{p.name}.log 2>&1 &")
+
 
         sleep(5)#changed to 5 from 10
         print("The producer slept for 10 ms before sending the file !!!")
@@ -145,8 +152,15 @@ if __name__ == '__main__':
         "transfer4.dat",
         "transfer5.dat",
         "transfer6.dat",
-        "transfer7.dat"
-        
+        "transfer7.dat",
+        "transfer8.dat",
+        "transfer9.dat"
+        # "transfer10.dat",
+        # "transfer11.dat",
+        # "transfer12.dat",
+        # "transfer13.dat",
+        # "transfer14.dat",
+        # "transfer15.dat"
         ]
     for file in file_list:
         producer_0 = producers[0]

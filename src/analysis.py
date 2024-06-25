@@ -42,17 +42,20 @@ def count_lines():
                 for line in log_file:
                     if "Multicast data received" in line:
                         data_rec_count += 1
+                    # elif "sent, finally in" line:
                     elif "Interest sent finally" in line:
                         interest_sent_count += 1
                     elif "Data sent finally" in line:
+                    # elif "Sending data finally, via multicast face" in line:
                         data_sent_finally += 1
                     elif "Multicast interest received" in line:
                         interest_rec_count += 1
                 print(f"Count of lines with 'Multicast interest received': {interest_rec_count}")
-
+                # print(f"Count of lines with 'sent, finally': {interest_sent_count}")
                 print(f"Count of lines with 'Interest sent finally': {interest_sent_count}")
                 print(f"Count of lines with 'Multicast data received': {data_rec_count}")
                 print(f"Count of lines with 'Data sent finally': {data_sent_finally}")
+                # print(f"Count of lines with 'Sending data finally, via multicast face': {data_sent_finally}")
                 print()
 
 
@@ -64,20 +67,21 @@ def count_lines():
 
 # Example log file path
 
-for sta_number in range(1,7):
+for sta_number in range(1,5):
     log_file_path = f'/tmp/minindn/sta{sta_number}/log/nfd.log'
     output_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     file_path = f'{output_directory}{sta_number}.txt'
-    target_phrases = ['Multicast interest received:', 'Multicast data received:','sent finally', 'Data sent finally']
+    # target_phrases = ['Multicast interest received:', 'Multicast data received:','sent, finally', 'Sending data finally, via multicast face']
+    target_phrases = ['Multicast interest received:', 'Multicast data received:','Interest sent finally', 'Data sent finally']
 
     data_fetch()
     print("Fetched for node ", sta_number)
     count_lines()
 
 
-for sta_number in range(2,7):
+for sta_number in range(2,5):
     print("Node ", sta_number)
-    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt.log'
+    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt-transfer9.dat.log'
     with open(cat_file_path, "r") as cat_file:
         for line in cat_file:
             if "Time elapsed: " in line:

@@ -1,6 +1,6 @@
 import openpyxl
 import os
-output_excel_path = f'../../../analysis/Xlfile/analysis1.xlsx'
+output_excel_path = f'../../../analysis/analysis1.xlsx'
 # wb = openpyxl.Workbook()
 # sheet = wb.active
 # sheet.append(["Node", "Interest Rec", "Interest Sent","Data Rec", "Data Sent", "Time elapsed", "Goodput", "Timeout", "Retransmitted segment", "RTT"])
@@ -18,11 +18,11 @@ if sheet['A1'].value is None:
 
 
 print("Script running!!!")
-for sta_number in range(1,7):
+for sta_number in range(1,5):
     data_tuples = []
     log_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     
-    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt.log'
+    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt-transfer2.log'
 
     with open(log_file_path, "r") as log_file:
         data_rec_count = 0
@@ -40,8 +40,10 @@ for sta_number in range(1,7):
         for line in log_file:
             if "Multicast data received" in line:
                 data_rec_count += 1
+            # elif "sent, finally" in line:
             elif "Interest sent finally" in line:
                 interest_sent_count += 1
+            # elif "Sending data finally, via multicast face" in line:
             elif "Data sent finally" in line:
                 data_sent_finally += 1
             elif "Multicast interest received" in line:
