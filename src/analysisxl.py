@@ -22,7 +22,7 @@ for sta_number in range(1,5):
     data_tuples = []
     log_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     
-    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt-transfer2.log'
+    cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt-transfer9.dat.log'
 
     with open(log_file_path, "r") as log_file:
         data_rec_count = 0

@@ -42,7 +42,7 @@ def count_lines():
                 for line in log_file:
                     if "Multicast data received" in line:
                         data_rec_count += 1
-                    # elif "sent, finally in" line:
+                    # elif "sent, finally in line":
                     elif "Interest sent finally" in line:
                         interest_sent_count += 1
                     elif "Data sent finally" in line:

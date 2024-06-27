@@ -42,7 +42,8 @@ def sendFile(node, prefix, file):
     fname = file.split("/")[-1].split(".")[0]
     publised_under = "{}/{}".format(prefix, fname)
     info ("Publishing file: {}, under name: {} \n".format(fname, publised_under))
-    cmd = 'ndnputchunks -s 100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    cmd = 'ndnputchunks -s 1100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    # cmd = 'ndnputchunks -s 100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
     print(f"Send File: {cmd}")
     node.cmd(cmd)
     sleep(10)
@@ -147,13 +148,13 @@ if __name__ == '__main__':
 
     base_path = "/home/bidhya/workspace/STRL/files/"
     file_list = [
-        "transfer2.dat",
-        "transfer3.dat",
-        "transfer4.dat",
-        "transfer5.dat",
-        "transfer6.dat",
-        "transfer7.dat",
-        "transfer8.dat",
+        # "transfer2.dat",
+        # "transfer3.dat",
+        # "transfer4.dat",
+        # "transfer5.dat",
+        # "transfer6.dat",
+        # "transfer7.dat",
+        # "transfer8.dat",
         "transfer9.dat"
         # "transfer10.dat",
         # "transfer11.dat",
