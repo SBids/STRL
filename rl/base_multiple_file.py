@@ -7,12 +7,15 @@ import numpy as np
 import tensorflow as tf
 from agent import Agent
 import matplotlib.pyplot as plt
+import sys
+import math
+
 
 FIFO_SUPPRESSION_VALUE = 'fifo_suppression_value'
 FIFO_OBJECT_DETAILS = 'fifo_object_details'
 EMBEDDING_DIMENSION = 80
 EVALUATION_INTERVAL = 100  # Evaluate every 1000 steps
-PERFORMANCE_THRESHOLD = 6.7  # Threshold for performance to resume training
+PERFORMANCE_THRESHOLD = 5.5 # Threshold for performance to resume training
 experience_dict = {}
 reward_history = []
 score = 0
@@ -46,6 +49,7 @@ def write_action(action):
 def calculate_reward(states_dict, previous_dc):
     dc = float(states_dict["ewma_dc"])
     is_forwarded = states_dict["wasForwarded"] == "true"
+    suppression_time = float(states_dict["suppression_time"].split(" ")[0])
     forwarded_status = 0 if is_forwarded else 2
     dc_diff = 0
     if dc == previous_dc == 1:
@@ -56,7 +60,10 @@ def calculate_reward(states_dict, previous_dc):
         dc_diff = 2 * (previous_dc - int(dc))
     else:
         dc_diff = previous_dc - int(dc)
-    reward = forwarded_status + dc_diff
+    if suppression_time > 0:
+        reward = forwarded_status + dc_diff - math.log10(suppression_time)
+    else:
+        reward = forwarded_status + dc_diff
     return reward, dc
 
 def evaluate_performance(reward_history, interval):
@@ -64,17 +71,21 @@ def evaluate_performance(reward_history, interval):
     average_reward = np.mean(recent_rewards)
     return average_reward
 
-def main():
+def main(node_name):
     try:
         os.mkfifo(FIFO_OBJECT_DETAILS, mode=0o777)
     except OSError as oe:
         if oe.errno != errno.EEXIST:
             raise
-    agent = Agent()
+    agent = Agent(node_name)
     counter = 1
     previous_dc = 1
     score = 0
     training = True
+    # training = False
+    model_dir = "/home/bidhya/workspace/STRL/rl/modelmultiplewithoutsuppressionreward"
+    node_dir = os.path.join(model_dir, node_name)
+
     while True:
         try:
             start_time = time.time()
@@ -89,44 +100,52 @@ def main():
             write_action(action)
             print("State with action", states_dict, action)
             # Calculate reward and update agent if training
-            if training:
-                if prefix_name_with_packet in experience_dict:
-                    reward, previous_dc = calculate_reward(states_dict, previous_dc)
+            
+            if prefix_name_with_packet in experience_dict:
+                reward, previous_dc = calculate_reward(states_dict, previous_dc)
                     # score += reward
-                    done = 0
-                    previous_state = experience_dict[prefix_name_with_packet]
-                    current_state = new_embeddings
+                done = 0
+                previous_state = experience_dict[prefix_name_with_packet]
+                current_state = new_embeddings
+                if training:
+                    print("Agent is learning")
                     agent.learn(previous_state, reward, current_state, done)
-                    reward_history.append(reward)
-                    print("State with action", states_dict, action, "Reward", reward)
+                reward_history.append(reward)
+                print("State with action", states_dict, action, "Reward", reward)
 
             # Update experience
             experience_dict[prefix_name_with_packet] = new_embeddings
-            counter += 1
+            
 
             if counter == 1:
-                if os.path.exists("/home/bidhya/Desktop/STRL/rl/modelmultiple"):
+                print("Counter 1: ", node_dir, os.path.exists(node_dir))               
+                if os.path.exists(node_dir):
                     agent.load_models()
 
             # Evaluation phase
+            # if node_name == "sta4":
+            #     PERFORMANCE_THRESHOLD = 4.8
             if counter % EVALUATION_INTERVAL == 0:
                 average_reward = evaluate_performance(reward_history, EVALUATION_INTERVAL)
                 print(f"Evaluation at step {counter}: Average Reward = {average_reward}")
                 if average_reward >= PERFORMANCE_THRESHOLD:
                     print("Pausing training due to satisfactory performance.")
-                    agent.save_models()
+                    # agent.save_models()
                     training = False
                 else:
                     print("Resuming training due to poor performance.")
-                    if os.path.exists("/home/bidhya/Desktop/STRL/rl/modelmultiple"):
-                        agent.load_models()  # Load the model when resuming training
-                    training = True
-
+                    # if os.path.exists(node_dir):
+                    #     agent.load_models()  # Load the model when resuming training
+                    training = False
+            
             end_time = time.time()
-            print("Execution period", (end_time - start_time) * 1000, "Counter", counter)
-
+            print("Execution period", (end_time - start_time) * 1000, "Counter", counter, " training ", training)
+            counter += 1
         except Exception as e:
             print("Exception:", e)
 
 if __name__ == "__main__":
-    main()
+    arg1 = sys.argv[1]
+
+    print(f"Argument 1: {arg1}")
+    main(arg1)
