@@ -52,7 +52,5 @@ class ActorCriticNetwork(tf.keras.Model):
     # mu = tf.nn.softplus(self.mu) + 1e-5
     sigma = self.sigma(value)
     # print("model summary ", self.summary())
-    # for layer in self.layers:
-    #   print(f"{layer.name}: Trainable = {layer.trainable}")
 
     return v, mu, sigma

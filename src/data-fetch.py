@@ -2,7 +2,12 @@ import os
 import re
 from datetime import datetime
 
+# log_file_path = '/tmp/minindn/sta13/log/nfd.log'  # Replace with the actual file path
+# output_file_path = '../../rfiltered_lines.txt'  # Replace with the desired output file path
+# target_phrases = ['Analysis History Interest /producer/sta1/transfer/v', 'Analysis History Data /producer/sta1/transfer/v','Analysis History Interest sent finally: /producer/sta1/transfer/v', 'Analysis History Satisfied data for Corresponding interest: /producer/sta1/transfer/v']
+# # target_phrases = ['Analysis History']
 
+# file_path = '../../filtered_lines13.txt'
 
 def data_fetch():
     try:
@@ -16,7 +21,9 @@ def data_fetch():
                     output_file.write('\n'.join(lines_to_be_written))
                     print(f"Filtered lines have been written to '{output_file_path}'")
                 else:
-                    print("No lines matching the specified target phrases found.")      
+                    print("No lines matching the specified target phrases found.")
+
+            
         else:
             print(f"The log file '{log_file_path}' does not exist.")
 
