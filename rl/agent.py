@@ -5,7 +5,7 @@ from network import ActorCriticNetwork
 import os
 import tensorflow.keras as keras
 
-chkpt_dir_path = "/home/bidhya/workspace/STRL/rl/modelmultiplewithoutsuppressionreward"
+chkpt_dir_path = "/home/bidhya/workspace/STRL/rl/modelmultiplelab"
 
 class Agent:
     def __init__(self, node_name, gamma=0.99, n_actions=1, chkpt_dir=chkpt_dir_path):
@@ -23,9 +23,11 @@ class Agent:
 
     def choose_action(self, observation):
         _, mu, sigma = self.actor_critic(observation)
+        print("Mean is ", mu, " and sigma is ", sigma)
         action_distribution = tfp.distributions.Normal(loc=mu, scale=sigma)
-        raw_action = action_distribution.sample()
-        action = tf.clip_by_value(raw_action, clip_value_min=0.0, clip_value_max=4000.00)
+        raw_action = action_distribution.sample(seed=42)
+        print("raw_action ", raw_action, " mu ", mu, " sigma ", sigma)
+        action = tf.clip_by_value(raw_action, clip_value_min=15.0, clip_value_max=4000.00)
         log_prob = action_distribution.log_prob(action)
         self.action = action
         action = action[0]
@@ -46,7 +48,7 @@ class Agent:
         with tf.GradientTape() as tape:
             value, mu, sigma = self.actor_critic(state)
             print("Value from critic ", value)
-            print("mean mu from actor head ", mu)
+            print("mean mu from actor head ", mu, " for state ", state)
             print("sigma standard deviation from actor head ", sigma)
             value_, _, _ = self.actor_critic(state_)
             td_error = reward + self.gamma * value_ * (1 - done) - value
@@ -66,5 +68,8 @@ class Agent:
         self.actor_critic.save_weights(self.checkpoint_file)
 
     def load_models(self):
-        print("Loading model from", self.checkpoint_file)
-        self.actor_critic.load_weights(self.checkpoint_file)
+        if os.path.isdir(self.chkpt_dir_node):
+            print("Loading model from", self.checkpoint_file)
+            self.actor_critic.load_weights(self.checkpoint_file)
+        else:
+            print("No checkpoint found at", self.checkpoint_file)
