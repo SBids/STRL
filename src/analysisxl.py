@@ -18,7 +18,7 @@ if sheet['A1'].value is None:
 
 
 print("Script running!!!")
-for sta_number in range(1,5):
+for sta_number in range(1,9):
     data_tuples = []
     log_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     
