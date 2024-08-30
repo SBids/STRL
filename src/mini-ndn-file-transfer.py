@@ -19,20 +19,35 @@ _F_NAME = "transfer_"
 parent_folder = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
 rl_path = os.path.join(parent_folder, 'rl/base_multiple_file.py')
 
+# all_nodes = {
+#     "sta1": {"position": (10,10,0)},
+#     "sta2": {"position": (30,10,0)},
+#     "sta3": {"position": (30,30,0)},
+#     "sta4": {"position": (10,30,0)},
+#     "sta5": {"position": (0,0,0)},
+#     "sta6": {"position": (40,40,0)},
+#     "sta7": {"position": (0,20,0)},
+#     "sta8": {"position": (0,40,0)},
+#     "sta9": {"position": (20,40,0)},
+#     "sta10": {"position": (40,20,0)},
+#     "sta11": {"position": (40,0,0)},
+#     "sta12": {"position": (20,0,0)},
+#     "sta13": {"position": (20,10,0)}
+# }
 all_nodes = {
-    "sta1": {"position": (10,10,0)},
-    "sta2": {"position": (30,10,0)},
-    "sta3": {"position": (30,30,0)},
-    "sta4": {"position": (10,30,0)},
-    "sta5": {"position": (0,0,0)},
-    "sta6": {"position": (40,40,0)},
-    "sta7": {"position": (0,20,0)},
-    "sta8": {"position": (0,40,0)},
-    "sta9": {"position": (20,40,0)},
-    "sta10": {"position": (40,20,0)},
-    "sta11": {"position": (40,0,0)},
-    "sta12": {"position": (20,0,0)},
-    "sta13": {"position": (20,10,0)}
+    "sta1": {"position": (20, 34, 0)},   # This should be the producer
+    "sta2": {"position": (34, 20, 0)},
+    "sta3": {"position": (20, 6, 0)},
+    "sta4": {"position": (6, 20, 0)},
+    "sta5": {"position": (20, 34, 0)},
+    "sta6": {"position": (34, 20, 0)},
+    "sta7": {"position": (20, 6, 0)},
+    "sta8": {"position": (6, 20, 0)},
+    "sta9": {"position": (20, 34, 0)},
+    "sta10": {"position": (34, 20, 0)},
+    "sta11": {"position": (20, 6, 0)},
+    "sta12": {"position": (6, 20, 0)},
+    "sta13": {"position": (20, 34, 0)}
 }
 accessPoint = {"ap1": {"position": (20,20,0), "range": 100, "mode":'g'}}
 
@@ -78,7 +93,7 @@ if __name__ == '__main__':
     for ap in accessPoint:
         _ap.append(topo.addAccessPoint(ap, **accessPoint[ap]))
 
-    optsforlink1  = {'bw':100, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
+    optsforlink1  = {'bw':150, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
 
     for s in _s:
         topo.addLink(s, _ap[0], **optsforlink1) #adds a wireless link between the current station s and the first access point (_ap[0]).
@@ -147,7 +162,7 @@ if __name__ == '__main__':
     #     for p in producers:
     #         receiveFile(c, producers_prefix[p.name], p.name+".txt")
 
-    base_path = "/home/bidhya/workspace/STRL/files/"
+    base_path = "/home/bidhya/workspace/STRLprac/files/"
     file_list = [
         # "transfer2.dat",
         # "transfer3.dat",

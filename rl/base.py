@@ -1,153 +1,213 @@
+
+
+
 import os
 import time
-from sys import argv, exit
 import string
 import json
 import errno
-from agent import Agent
 import numpy as np
 import tensorflow as tf
-from pathlib import Path as p
-
-
-
-fifo_suppression_value = 'fifo_suppression_value' #we don't care if this file is chaged because we write to this file
-fifo_object_details = 'fifo_object_details'
-num = 0
-import numpy as np
+from agent import Agent
 import matplotlib.pyplot as plt
+import sys
+import math
+from datetime import datetime
 
-def plot_learning_curve(x, scores, figure_file):
-  running_avg = np.zeros(len(scores))
-  for i in range(len(running_avg)):
-    running_avg[i] = np.mean(scores[max(0, i-100):(i+1)])
-  plt.plot(x, running_avg)
-  plt.title('Running average of previous 100 scores')
-  plt.savefig(figure_file)
-def generate_positional_embedding(text):
-  alphabet = string.ascii_lowercase
-  digits = string.digits
-  symbols = "!@#$%^&*()_-+={}[]|\:;'<>?,./\""
-  vocab = alphabet + digits + symbols
-  embedding_dimension = 80
-  embedding = []
+def get_timestamp():
+    return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-  for idx, char in enumerate(text.lower()):
-    if char in vocab:
-      char_idx = vocab.index(char)
-      embedding.append(char_idx)
-  while len(embedding) < embedding_dimension:
-      embedding.append(0)
-  embedding = embedding[:embedding_dimension]
-  return(embedding)
-
-
+FIFO_SUPPRESSION_VALUE = 'fifo_suppression_value'
+FIFO_OBJECT_DETAILS = 'fifo_object_details'
+EMBEDDING_DIMENSION = 80
+EVALUATION_INTERVAL = 100  # Evaluate every 1000 steps
+PERFORMANCE_THRESHOLD = 5.5 # Threshold for performance to resume training
 experience_dict = {}
-seg_dict = {}
-done = 0
-learn_count = 1
 reward_history = []
 score = 0
 
-if __name__ == "__main__":
-  print("Printing main function")
-  try:
-    os.mkfifo(fifo_object_details, mode=0o777)
-  except OSError as oe:
-    if oe.errno != errno.EEXIST:
-      print("File does not exist!!!")
-      raise
-
-  counter = 1 
-  agent = Agent()
-  score = 0
-
-  
-  load_checkpoint = True
-
-  if load_checkpoint:
-    agent.load_models()
-  
-  while True:
-    try:
-      start_time = time.time()
-      read_pipe = os.open(fifo_object_details, os.O_RDONLY)
-      bytes = os.read(read_pipe, 1024)
-      os.close(read_pipe)
-      if len(bytes) == 0:
-        print("length of byte is zero")
-        break
-      states_string = bytes.decode() 
-      states_dict = json.loads(states_string)   
-      states_values = [str(value) for value in states_dict.values()]
-      prefix_name = '/'.join(states_values[1].split('/')[:-1])
-      states_values[1] = prefix_name
-      result = '/'.join(states_values) 
-      print("Result ", states_dict)
-      embedding_start = time.time()
-      embeddings = generate_positional_embedding(result)
-      embedding_end = time.time()
-      print("The embedding time is ", (embedding_end - embedding_start)*1000)
-      new_embeddings = tf.convert_to_tensor([embeddings], dtype=tf.float32)
-      if states_dict["seg_name"] in seg_dict.keys():        
-        action = seg_dict[states_dict["seg_name"]]
-        # action = round(agent.choose_action(new_embeddings),2)
-        write_pipe = os.open(fifo_object_details, os.O_WRONLY)  
-        response = "{}".format(action)
-        os.write(write_pipe, response.encode())
-        os.close(write_pipe)      
-      else:
-        action = round(agent.choose_action(new_embeddings),2)
-        seg_dict[states_dict["seg_name"]] = action     
-        write_pipe = os.open(fifo_object_details, os.O_WRONLY)  
-        response = "{}".format(action)
-        os.write(write_pipe, response.encode())
-        os.close(write_pipe)
-        if prefix_name in experience_dict.keys():
-          dc = states_dict["ewma_dc"]
-          reward = 13 - float(dc)
-          score += reward
-          
-          done = 0
-          previous_state = experience_dict[prefix_name]
-          current_state = new_embeddings
-          train_start = time.time()
-          # agent.learn(previous_state, reward, current_state, done)
-
-          train_end = time.time()
-          print("The learning time taken is: ", (train_end - train_start)*1000)
-          reward_history.append(score)
-          avg_score = np.mean(reward_history[-100:])
-
-     
-
-      end_time = time.time()
-      print("Execution period ", (end_time - start_time)*1000)
-      experience_dict[prefix_name] = new_embeddings
-      counter = counter + 1
-      
-      # if counter == 8000:
-      #   print("Saving the model weight")
-        # agent.save_models()
-      # x = [i+1 for i in range(counter)]
-      # plot_learning_curve(x, reward_history, 'cartpole_1e-5_1024x512_1800games.png')
-    except Exception as e:
-      print ("exception: ", e)
-
+def generate_positional_embedding(text):
     
-  
+    alphabet = string.ascii_lowercase
+    digits = string.digits
+    symbols = "!@#$%^&*()_-+={}[]|\:;'<>?,./\""
+    vocab = alphabet + digits + symbols
+    embedding = []
+    for idx, char in enumerate(text.lower()):
+        if char in vocab:
+            char_idx = vocab.index(char)
+            embedding.append(char_idx)
+    while len(embedding) < EMBEDDING_DIMENSION:
+        embedding.append(0)
+    embedding = embedding[:EMBEDDING_DIMENSION]
+    return embedding
+
+def get_embedding_of_prefix(prefix):
+    positional_embedding = generate_positional_embedding(prefix)
+    return tf.convert_to_tensor([positional_embedding], dtype=tf.float32)
+
+def read_state():
+    
+    with open(FIFO_OBJECT_DETAILS, 'r') as read_pipe:
+        states_string = read_pipe.read()
+    if not states_string:
+        raise ValueError("No data received from FIFO")
+    
+    return json.loads(states_string)
+
+def write_action(action):
+   
+    with open(FIFO_OBJECT_DETAILS, 'w') as write_pipe:
+        write_pipe.write(f"{action}")
+   
+
+def calculate_reward(states_dict, previous_dc):
+    dc = float(states_dict["ewma_dc"])
+    is_forwarded = states_dict["wasForwarded"] == "true"
+    suppression_time = float(states_dict["suppression_time"].split(" ")[0])
+    forwarded_status = 0 if is_forwarded else 2
+    dc_diff = 0
+    if dc == previous_dc == 1:
+        dc_diff = 5
+    elif dc == previous_dc:
+        dc_diff = -int(dc)
+    elif dc > previous_dc:
+        dc_diff = 2 * (previous_dc - int(dc))
+    else:
+        dc_diff = previous_dc - int(dc)
+    if suppression_time > 0:
+        reward = forwarded_status + dc_diff - math.log10(suppression_time)
+    else:
+        reward = forwarded_status + dc_diff
+    
+    return reward, dc
+
+def evaluate_performance(reward_history, interval):
+    recent_rewards = reward_history[-interval:]
+    average_reward = np.mean(recent_rewards)
+    return average_reward
+
+def main(node_name):
+    start_mkfifo = time.time()
+    try:
+        os.mkfifo(FIFO_OBJECT_DETAILS, mode=0o777)
+    except OSError as oe:
+        if oe.errno != errno.EEXIST:
+            raise
+    end_mkfifo = time.time()
+    print(f"{get_timestamp()} Execution time for mkfifo ",(end_mkfifo-start_mkfifo)*1000)
+    start_time_agent_instance = time.time()
+    agent = Agent(node_name)
+    end_time_agent_instance = time.time()
+    print(f"{get_timestamp()}Execution time for agent instance creation ",( end_time_agent_instance - start_time_agent_instance)*1000)
+    # start_time_load_model = time.time()
+    # agent.load_models() # load models from checkpoint
+    # end_time_load_model = time.time()
+    # print(f"{get_timestamp()}Execution time for Loading model time ", (end_time_load_model - start_time_load_model)*1000)
+    counter = 1
+    previous_dc = 1 # previous duplicate count
+    training = False # True
+    fifo_read_time = 0
+    fifo_write_time = 0
+    embedding_time = 0
+    reward_time = 0
+    choosing_action_time = 0
+    training_time = 0
+    execution_time = 0
+    
+    while True:
+        try:
+            start_time = time.time()
+            print("The start time for all the process ", start_time)
+            # Read and process state
+            start_time_read_state = time.time()
+            states_dict = read_state() # {name : , type: , ewma_dc: , is_forwarded: , supression_time: }  
+            end_time_read_state = time.time()
+            fifo_read_time = (end_time_read_state - start_time_read_state)*1000 
+            print(f"{get_timestamp()}Execution time for Read state time ", fifo_read_time, " start time was ", start_time_read_state, states_dict)
+    
+            result = '/'.join(str(value) for value in states_dict.values()).split(" ")[0]
+            prefix_name_with_packet = f"{states_dict['name']}/{states_dict['type']}"      
+            start_time_embedding = time.time()
+            new_embeddings = get_embedding_of_prefix(result)
+            end_time_embedding = time.time()
+            embedding_time = (end_time_embedding - start_time_embedding) * 1000
+            # Select action
+            start_time_choose_action = time.time()
+            action = int(agent.choose_action(new_embeddings))
+            end_time_choose_action = time.time()
+            choosing_action_time = (end_time_choose_action - start_time_choose_action) *1000
+            start_time_write_action = time.time()
+            write_action(action)
+            end_time_write_action = time.time()
+            fifo_write_time = (end_time_write_action - start_time_write_action)*1000
+            print(f"{get_timestamp()}Execution time for Write action time ", (end_time_write_action - start_time_write_action)*1000)
+            print(f"{get_timestamp()}State with action", states_dict, action)
+            st = float(states_dict["suppression_time"].split(" ")[0])
+            # Calculate reward and update agent if training
+            start_time_dict = time.time()
+            if prefix_name_with_packet in experience_dict:
+                start_time_calculate_reward = time.time()
+                reward, previous_dc = calculate_reward(states_dict, previous_dc)
+                end_time_calculate_reward = time.time()
+                reward_time = (end_time_calculate_reward - start_time_calculate_reward)*1000
+                print(f"{get_timestamp()}Execution time for Calculating reward time ", reward_time, " Embedding start time", start_time_calculate_reward)
+                
+                    # score += reward
+                done = 0
+                previous_state = experience_dict[prefix_name_with_packet]
+                current_state = new_embeddings
+                if training:
+                    print(f"{get_timestamp()}Agent is learning")
+                    start_learn = time.time()
+                    agent.learn(previous_state, reward, current_state, done)
+                    end_learn = time.time()
+                    training_time = (end_learn - start_learn) * 1000    
+                reward_history.append(reward)
+                print(f"{get_timestamp()}State with action", states_dict, action, "Reward", reward)
+            end_time_dict = time.time()
+            print(f"{get_timestamp()}Execution time for dictionary search ", (end_time_dict - start_time_dict)*1000)
+            # Update experience
+            experience_dict[prefix_name_with_packet] = new_embeddings
+            
+
+            # if counter == 1:
+            #     print("Counter 1: ", node_dir, os.path.exists(node_dir))               
+            #     if os.path.exists(node_dir):
+            #         agent.load_models()
+
+            # Evaluation phase
+            # if node_name == "sta4":
+            #     PERFORMANCE_THRESHOLD = 4.8
+            if counter % EVALUATION_INTERVAL == 0:
+                average_reward = evaluate_performance(reward_history, EVALUATION_INTERVAL)
+                print(f"Evaluation at step {counter}: Average Reward = {average_reward}")
+                if average_reward >= PERFORMANCE_THRESHOLD:
+                    print("Pausing training due to satisfactory performance.")
+                    agent.save_models()
+                    training = False
+                else:
+                    print("Resuming training due to poor performance.")
+                    # if os.path.exists(node_dir):
+                    #     agent.load_models()  # Load the model when resuming training
+                    training = True
+            
+            end_time = time.time()
+            execution_time = (end_time - start_time)*1000
+            print("Analysis Counter: ", counter, " Node: ", node_name, "Read time: ", fifo_read_time, " Write time: ", fifo_write_time, " Embedding time: ", embedding_time, " Choose action: ", choosing_action_time, " Reward calculate: ", reward_time, " Execution time: ", execution_time, "Suppression time: ", st, " Training time: ", training_time)
+
+            counter = counter + 1
+           
+
+        except Exception as e:
+            print(f"{get_timestamp()}Exception:", e)
+
+if __name__ == "__main__":
+    arg1 = sys.argv[1]
+
+    print(f"Argument 1: {arg1}")
+    main(arg1)
 
 
 
 
-
-       # print("Segment dictionary ", seg_dict)
-      # print("Experience dict ", experience_dict)
-      # if len(reward_history) >= 100:
-      #   average_reward = sum(reward_history[-100:])/100
-      #   threshold = 12
-      #   if average_reward >= threshold:
-      #     agent.save_models()
-
-  
-  

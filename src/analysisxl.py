@@ -1,6 +1,6 @@
 import openpyxl
 import os
-output_excel_path = f'../../../analysis/analysis1.xlsx'
+output_excel_path = f'../../../analysis/analysisAug30.xlsx'
 # wb = openpyxl.Workbook()
 # sheet = wb.active
 # sheet.append(["Node", "Interest Rec", "Interest Sent","Data Rec", "Data Sent", "Time elapsed", "Goodput", "Timeout", "Retransmitted segment", "RTT"])
@@ -18,7 +18,7 @@ if sheet['A1'].value is None:
 
 
 print("Script running!!!")
-for sta_number in range(1,9):
+for sta_number in range(1,4):
     data_tuples = []
     log_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     

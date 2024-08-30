@@ -1,13 +1,3 @@
-import cProfile
-import pstats
-import io
-
-pr = cProfile.Profile()
-pr.enable()
-
-
-
-
 import os
 import time
 import string
@@ -27,8 +17,8 @@ def get_timestamp():
 FIFO_SUPPRESSION_VALUE = 'fifo_suppression_value'
 FIFO_OBJECT_DETAILS = 'fifo_object_details'
 EMBEDDING_DIMENSION = 80
-EVALUATION_INTERVAL = 100  # Evaluate every 1000 steps
-PERFORMANCE_THRESHOLD = 5.5 # Threshold for performance to resume training
+EVALUATION_INTERVAL = 30  # Evaluate every 1000 steps
+PERFORMANCE_THRESHOLD = 3.5# Threshold for performance to resume training
 experience_dict = {}
 reward_history = []
 score = 0
@@ -95,22 +85,12 @@ def evaluate_performance(reward_history, interval):
     return average_reward
 
 def main(node_name):
-    start_mkfifo = time.time()
     try:
         os.mkfifo(FIFO_OBJECT_DETAILS, mode=0o777)
     except OSError as oe:
         if oe.errno != errno.EEXIST:
             raise
-    end_mkfifo = time.time()
-    print(f"{get_timestamp()} Execution time for mkfifo ",(end_mkfifo-start_mkfifo)*1000)
-    start_time_agent_instance = time.time()
     agent = Agent(node_name)
-    end_time_agent_instance = time.time()
-    print(f"{get_timestamp()}Execution time for agent instance creation ",( end_time_agent_instance - start_time_agent_instance)*1000)
-    start_time_load_model = time.time()
-    agent.load_models() # load models from checkpoint
-    end_time_load_model = time.time()
-    print(f"{get_timestamp()}Execution time for Loading model time ", (end_time_load_model - start_time_load_model)*1000)
     counter = 1
     previous_dc = 1 # previous duplicate count
     training = False # True
@@ -121,6 +101,17 @@ def main(node_name):
     choosing_action_time = 0
     training_time = 0
     execution_time = 0
+    agent.load_models() # load models from checkpoint
+
+    time.sleep(10)
+    for layer in agent.actor_critic.layers:
+        weights = layer.get_weights()
+        print(weights)
+        print ("Layer", layer.name,  "Type: ", type(layer).__name__, "Weights: ", layer.get_weights())
+
+
+    # node_dir = "/home/bidhya/workspace/STRLprac/rl/modelmultiplelab"
+
     
     while True:
         try:
@@ -131,7 +122,7 @@ def main(node_name):
             states_dict = read_state() # {name : , type: , ewma_dc: , is_forwarded: , supression_time: }  
             end_time_read_state = time.time()
             fifo_read_time = (end_time_read_state - start_time_read_state)*1000 
-            print(f"{get_timestamp()}Execution time for Read state time ", fifo_read_time, " start time was ", start_time_read_state)
+            print(f"{get_timestamp()}Execution time for Read state time ", fifo_read_time, " start time was ", start_time_read_state, states_dict)
     
             result = '/'.join(str(value) for value in states_dict.values()).split(" ")[0]
             prefix_name_with_packet = f"{states_dict['name']}/{states_dict['type']}"      
@@ -186,18 +177,18 @@ def main(node_name):
             # Evaluation phase
             # if node_name == "sta4":
             #     PERFORMANCE_THRESHOLD = 4.8
-            # if counter % EVALUATION_INTERVAL == 0:
-            #     average_reward = evaluate_performance(reward_history, EVALUATION_INTERVAL)
-            #     print(f"Evaluation at step {counter}: Average Reward = {average_reward}")
-            #     if average_reward >= PERFORMANCE_THRESHOLD:
-            #         print("Pausing training due to satisfactory performance.")
-            #         # agent.save_models()
-            #         training = False
-            #     else:
-            #         print("Resuming training due to poor performance.")
-            #         # if os.path.exists(node_dir):
-            #         #     agent.load_models()  # Load the model when resuming training
-            #         training = False
+            if counter % EVALUATION_INTERVAL == 0:
+                average_reward = evaluate_performance(reward_history, EVALUATION_INTERVAL)
+                print(f"Evaluation at step {counter}: Average Reward = {average_reward}")
+                if average_reward >= PERFORMANCE_THRESHOLD:
+                    print("Pausing training due to satisfactory performance.")
+                    agent.save_models()
+                    training = True
+                # else:
+                #     print("Resuming training due to poor performance.")
+                #     # if os.path.exists(node_dir):
+                #     agent.load_models()  # Load the model when resuming training
+                #     training = True
             
             end_time = time.time()
             execution_time = (end_time - start_time)*1000

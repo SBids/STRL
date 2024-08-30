@@ -67,7 +67,7 @@ def count_lines():
 
 # Example log file path
 
-for sta_number in range(1,9):
+for sta_number in range(1,4):
     log_file_path = f'/tmp/minindn/sta{sta_number}/log/nfd.log'
     output_file_path = f'../../../analysis/rfiltered_lines{sta_number}.txt'
     file_path = f'{output_directory}{sta_number}.txt'
@@ -79,7 +79,7 @@ for sta_number in range(1,9):
     count_lines()
 
 
-for sta_number in range(2,9):
+for sta_number in range(2,4):
     print("Node ", sta_number)
     cat_file_path = f'/tmp/minindn/sta{sta_number}/catchunks-sta1.txt-transfer9.dat.log'
     with open(cat_file_path, "r") as cat_file:

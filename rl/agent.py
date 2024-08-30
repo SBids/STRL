@@ -5,7 +5,8 @@ from network import ActorCriticNetwork
 import os
 import tensorflow.keras as keras
 
-chkpt_dir_path = "/home/bidhya/workspace/STRL/rl/modelmultiplelab"
+chkpt_dir_path = "/home/bidhya/workspace/STRLprac/rl/modelmultiplelab"
+# chkpt_dir_path = "/home/bidhya/workspace/STRLprac/rl/newmodel"
 
 class Agent:
     def __init__(self, node_name, gamma=0.99, n_actions=1, chkpt_dir=chkpt_dir_path):
@@ -59,17 +60,25 @@ class Agent:
             actor_loss = -log_prob * tf.stop_gradient(advantage)
             critic_loss = tf.square(td_error)
             loss = actor_loss + critic_loss
+            print("Total Loss", loss)
         
         gradients = tape.gradient(loss, self.actor_critic.trainable_variables)
         self.actor_critic.optimizer.apply_gradients(zip(gradients, self.actor_critic.trainable_variables))
   
     def save_models(self):
-        print("Saving model to", self.checkpoint_file)
+        print("Saving model to =======================", self.checkpoint_file)
+        # Print the model weights before saving
+        for layer in self.actor_critic.layers:
+            print(f"Layer: {layer.name}")
+            weights = layer.get_weights()
+            for weight in weights:
+                print("Weights", weight)
         self.actor_critic.save_weights(self.checkpoint_file)
 
     def load_models(self):
         if os.path.isdir(self.chkpt_dir_node):
             print("Loading model from", self.checkpoint_file)
             self.actor_critic.load_weights(self.checkpoint_file)
+            
         else:
             print("No checkpoint found at", self.checkpoint_file)

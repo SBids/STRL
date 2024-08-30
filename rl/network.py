@@ -39,10 +39,10 @@ class ActorCriticNetwork(tf.keras.Model):
     self.fc2 = Dense(self.fc2_dims, activation='relu')
     self.v = Dense(1, activation=None)
     self.mu = Dense(self.action_dim, activation=None)  # Use tanh activation for mean
-    self.sigma = Dense(self.action_dim, activation=None)  # Use softplus activation for standard deviation
+    self.sigma = Dense(self.action_dim, activation='softplus')  # Use softplus activation for standard deviation
 
 
-
+  
   def call(self, state):
     value = self.fc1(state)
     value = self.fc2(value)
@@ -51,6 +51,6 @@ class ActorCriticNetwork(tf.keras.Model):
     mu = self.mu(value)
     # mu = tf.nn.softplus(self.mu) + 1e-5
     sigma = self.sigma(value)
-    # print("model summary ", self.summary())
-
+    print("Network sigma", sigma, v, mu)
+ 
     return v, mu, sigma
