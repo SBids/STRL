@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./rl"
+    ],
+    "cmake.ignoreCMakeListsMissing": true
+}

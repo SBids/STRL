@@ -2,7 +2,6 @@ import os
 import time
 import string
 import json
-import errno
 import numpy as np
 import tensorflow as tf
 from agent import Agent
@@ -10,21 +9,45 @@ import matplotlib.pyplot as plt
 import sys
 import math
 from datetime import datetime
+from multiprocessing import shared_memory, Semaphore, Lock
+from threading import Condition
 
 def get_timestamp():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+# Define constants
+SHM_NAME = 'my_shared_memory'
+SHM_SIZE = 1024  # Adjust size based on needs
+SEMAPHORE_NAME = 'my_semaphore'
+# Initialize shared memory and semaphore
+def init_shared_memory():
+    try:
+        shm = shared_memory.SharedMemory(name=SHM_NAME)
+    except FileNotFoundError:
+        shm = shared_memory.SharedMemory(name=SHM_NAME, create=True, size=SHM_SIZE)
+        shm.buf[:SHM_SIZE] = b' ' * SHM_SIZE
+    return shm
+
+def init_semaphore():
+    try:
+        semaphore = Semaphore(1)
+    except FileExistsError:
+        semaphore = Semaphore(1)
+    return semaphore
+
+shm = init_shared_memory()
+semaphore = init_semaphore()
+
 FIFO_SUPPRESSION_VALUE = 'fifo_suppression_value'
 FIFO_OBJECT_DETAILS = 'fifo_object_details'
 EMBEDDING_DIMENSION = 80
-EVALUATION_INTERVAL = 30  # Evaluate every 1000 steps
-PERFORMANCE_THRESHOLD = 3.5# Threshold for performance to resume training
+EVALUATION_INTERVAL = 100  # Evaluate every 1000 steps
+PERFORMANCE_THRESHOLD = 5.5  # Threshold for performance to resume training
 experience_dict = {}
 reward_history = []
 score = 0
 
 def generate_positional_embedding(text):
-    
     alphabet = string.ascii_lowercase
     digits = string.digits
     symbols = "!@#$%^&*()_-+={}[]|\:;'<>?,./\""
@@ -44,19 +67,33 @@ def get_embedding_of_prefix(prefix):
     return tf.convert_to_tensor([positional_embedding], dtype=tf.float32)
 
 def read_state():
-    
-    with open(FIFO_OBJECT_DETAILS, 'r') as read_pipe:
-        states_string = read_pipe.read()
-    if not states_string:
-        raise ValueError("No data received from FIFO")
-    
-    return json.loads(states_string)
+    global shm
+    global semaphore
+
+    semaphore.acquire()
+    try:
+        buffer = shm.buf[:SHM_SIZE].tobytes()
+        states_string = buffer.decode('utf-8').strip()
+        print(states_string)
+        return states_string
+        # if not states_string:
+        #     raise ValueError("No data received from shared memory")
+        # return json.loads(states_string)
+    finally:
+        semaphore.release()
 
 def write_action(action):
-   
-    with open(FIFO_OBJECT_DETAILS, 'w') as write_pipe:
-        write_pipe.write(f"{action}")
-   
+    global shm
+    global semaphore
+
+    semaphore.acquire()
+    try:
+        buffer = shm.buf[:SHM_SIZE]
+        action_str = f"{action}"
+        buffer[:len(action_str)] = action_str.encode('utf-8')
+        buffer[len(action_str):] = b' ' * (SHM_SIZE - len(action_str))
+    finally:
+        semaphore.release()
 
 def calculate_reward(states_dict, previous_dc):
     dc = float(states_dict["ewma_dc"])
@@ -85,15 +122,18 @@ def evaluate_performance(reward_history, interval):
     return average_reward
 
 def main(node_name):
-    try:
-        os.mkfifo(FIFO_OBJECT_DETAILS, mode=0o777)
-    except OSError as oe:
-        if oe.errno != errno.EEXIST:
-            raise
+    start_time = time.time()
+    # Initialize shared memory and semaphore
+    global shm
+    global semaphore
+    
+    # Set up agent
     agent = Agent(node_name)
+    agent.load_models()  # load models from checkpoint
+
     counter = 1
-    previous_dc = 1 # previous duplicate count
-    training = True # True
+    previous_dc = 1  # previous duplicate count
+    training = False  # True
     fifo_read_time = 0
     fifo_write_time = 0
     embedding_time = 0
@@ -102,58 +142,51 @@ def main(node_name):
     training_time = 0
     execution_time = 0
     
-    if not training:
-        agent.load_models() # load models from checkpoint
-
-    time.sleep(10)
-    for layer in agent.actor_critic.layers:
-        weights = layer.get_weights()
-        print(weights)
-        print ("Layer", layer.name,  "Type: ", type(layer).__name__, "Weights: ", layer.get_weights())
-
-
-    # node_dir = "/home/bidhya/workspace/STRLprac/rl/modelmultiplelab"
-
-    
     while True:
         try:
             start_time = time.time()
             print("The start time for all the process ", start_time)
+            
             # Read and process state
             start_time_read_state = time.time()
-            states_dict = read_state() # {name : , type: , ewma_dc: , is_forwarded: , supression_time: }  
+            states_dict = read_state()  # {name : , type: , ewma_dc: , is_forwarded: , suppression_time: }  
             end_time_read_state = time.time()
-            fifo_read_time = (end_time_read_state - start_time_read_state)*1000 
+            fifo_read_time = (end_time_read_state - start_time_read_state) * 1000 
             print(f"{get_timestamp()}Execution time for Read state time ", fifo_read_time, " start time was ", start_time_read_state, states_dict)
-    
+
             result = '/'.join(str(value) for value in states_dict.values()).split(" ")[0]
             prefix_name_with_packet = f"{states_dict['name']}/{states_dict['type']}"      
             start_time_embedding = time.time()
             new_embeddings = get_embedding_of_prefix(result)
             end_time_embedding = time.time()
             embedding_time = (end_time_embedding - start_time_embedding) * 1000
+            
             # Select action
             start_time_choose_action = time.time()
             action = int(agent.choose_action(new_embeddings))
             end_time_choose_action = time.time()
-            choosing_action_time = (end_time_choose_action - start_time_choose_action) *1000
+            choosing_action_time = (end_time_choose_action - start_time_choose_action) * 1000
+            
+            # Write action to shared memory
             start_time_write_action = time.time()
             write_action(action)
             end_time_write_action = time.time()
-            fifo_write_time = (end_time_write_action - start_time_write_action)*1000
-            print(f"{get_timestamp()}Execution time for Write action time ", (end_time_write_action - start_time_write_action)*1000)
+            fifo_write_time = (end_time_write_action - start_time_write_action) * 1000
+            print(f"{get_timestamp()}Execution time for Write action time ", fifo_write_time)
             print(f"{get_timestamp()}State with action", states_dict, action)
+            
             st = float(states_dict["suppression_time"].split(" ")[0])
+            
             # Calculate reward and update agent if training
             start_time_dict = time.time()
             if prefix_name_with_packet in experience_dict:
                 start_time_calculate_reward = time.time()
                 reward, previous_dc = calculate_reward(states_dict, previous_dc)
                 end_time_calculate_reward = time.time()
-                reward_time = (end_time_calculate_reward - start_time_calculate_reward)*1000
+                reward_time = (end_time_calculate_reward - start_time_calculate_reward) * 1000
                 print(f"{get_timestamp()}Execution time for Calculating reward time ", reward_time, " Embedding start time", start_time_calculate_reward)
                 
-                    # score += reward
+                # Update agent if training
                 done = 0
                 previous_state = experience_dict[prefix_name_with_packet]
                 current_state = new_embeddings
@@ -165,49 +198,34 @@ def main(node_name):
                     training_time = (end_learn - start_learn) * 1000    
                 reward_history.append(reward)
                 print(f"{get_timestamp()}State with action", states_dict, action, "Reward", reward)
+            
             end_time_dict = time.time()
-            print(f"{get_timestamp()}Execution time for dictionary search ", (end_time_dict - start_time_dict)*1000)
+            print(f"{get_timestamp()}Execution time for dictionary search ", (end_time_dict - start_time_dict) * 1000)
+            
             # Update experience
             experience_dict[prefix_name_with_packet] = new_embeddings
-            
-
-            # if counter == 1:
-            #     print("Counter 1: ", node_dir, os.path.exists(node_dir))               
-            #     if os.path.exists(node_dir):
-            #         agent.load_models()
 
             # Evaluation phase
-            # if node_name == "sta4":
-            #     PERFORMANCE_THRESHOLD = 4.8
             if counter % EVALUATION_INTERVAL == 0:
                 average_reward = evaluate_performance(reward_history, EVALUATION_INTERVAL)
                 print(f"Evaluation at step {counter}: Average Reward = {average_reward}")
                 if average_reward >= PERFORMANCE_THRESHOLD:
                     print("Pausing training due to satisfactory performance.")
-                    agent.save_models()
-                    training = True
-                # else:
-                #     print("Resuming training due to poor performance.")
-                #     # if os.path.exists(node_dir):
-                #     agent.load_models()  # Load the model when resuming training
-                #     training = True
+                    training = False
+                else:
+                    print("Resuming training due to poor performance.")
+                    training = False
             
             end_time = time.time()
-            execution_time = (end_time - start_time)*1000
+            execution_time = (end_time - start_time) * 1000
             print("Analysis Counter: ", counter, " Node: ", node_name, "Read time: ", fifo_read_time, " Write time: ", fifo_write_time, " Embedding time: ", embedding_time, " Choose action: ", choosing_action_time, " Reward calculate: ", reward_time, " Execution time: ", execution_time, "Suppression time: ", st, " Training time: ", training_time)
 
-            counter = counter + 1
-           
+            counter += 1
 
         except Exception as e:
             print(f"{get_timestamp()}Exception:", e)
 
 if __name__ == "__main__":
     arg1 = sys.argv[1]
-
     print(f"Argument 1: {arg1}")
     main(arg1)
-
-
-
-

@@ -4,8 +4,10 @@ import tensorflow_probability as tfp
 from network import ActorCriticNetwork
 import os
 import tensorflow.keras as keras
+import datetime
+import wandb
 
-chkpt_dir_path = "/home/bidhya/workspace/STRLprac/rl/modelmultiplelab"
+chkpt_dir_path = "/home/bidhya/workspace/STRLprac/rl/model_aug30_1045"
 # chkpt_dir_path = "/home/bidhya/workspace/STRLprac/rl/newmodel"
 
 class Agent:
@@ -14,7 +16,17 @@ class Agent:
         self.n_actions = n_actions
         self.node_name = node_name
         self.actor_critic = ActorCriticNetwork(n_actions=n_actions)
-        self.actor_critic.compile(optimizer=Adam(learning_rate=0.0003))
+        self.actor_critic.compile(optimizer=Adam(learning_rate=0.0003), metrics=['accuracy'])
+        wandb.login(key='540b361048b814fe60c9e37f79b5598c5588268e')
+        wandb.init(
+            # set the wandb project where this run will be logged
+            project="ac-rl",
+
+            # track hyperparameters and run metadata
+            config={
+            "learning_rate": 0.0003
+            }
+        )
         
         # Create directory for this node if it doesn't exist
         self.chkpt_dir_node = os.path.join(chkpt_dir, node_name)
@@ -60,11 +72,17 @@ class Agent:
             actor_loss = -log_prob * tf.stop_gradient(advantage)
             critic_loss = tf.square(td_error)
             loss = actor_loss + critic_loss
+
+            wandb.log({"actor_loss": actor_loss, "critic_loss": critic_loss, "loss": loss, "td_error": td_error})
+
             print("Total Loss", loss)
         
         gradients = tape.gradient(loss, self.actor_critic.trainable_variables)
         self.actor_critic.optimizer.apply_gradients(zip(gradients, self.actor_critic.trainable_variables))
-  
+
+
+
+
     def save_models(self):
         print("Saving model to =======================", self.checkpoint_file)
         # Print the model weights before saving
