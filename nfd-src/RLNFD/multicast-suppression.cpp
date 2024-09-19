@@ -43,7 +43,7 @@ static bool seeded = false;
 
 unsigned int UNSET = -1234;
 int CHARACTER_SIZE = 126;
-int maxIgnore = 0;
+int maxIgnore = 3;
 
 int counter = 0;
 
@@ -132,7 +132,7 @@ _FIFO::fifo_handler(const std::string& content)
 void
 NameTree::insert(std::string prefix, double value)
 {
-  NFD_LOG_INFO("The suppression time to be inserted " << value << " for the prefix " << prefix);
+  NFD_LOG_INFO("The suppression time to be inserted " << value);
   auto node = this; // this should be root
   for (unsigned int i = 0; i < prefix.length(); i++)
   {
@@ -144,6 +144,7 @@ NameTree::insert(std::string prefix, double value)
       node->suppressionTime = value;
       // node->suppressionTime = minSuppressionTime;
     }
+
     node = node->children[index];
   }
   // leaf node
@@ -154,7 +155,7 @@ NameTree::insert(std::string prefix, double value)
 double
 NameTree::longestPrefixMatch(const std::string& prefix) // longest prefix match
 {
-  NFD_LOG_INFO("****************** LongestPrefixMatch Function called ********************" << prefix);
+  NFD_LOG_INFO("****************** LongestPrefixMatch Function called ********************");
   auto node = this;
   double lastValueFound = UNSET;
   // double minSuppressionTime = 0;
@@ -186,19 +187,31 @@ NameTree::longestPrefixMatch(const std::string& prefix) // longest prefix match
 time::milliseconds
 NameTree::getSuppressionTimer(const std::string& name)
 {
-  NFD_LOG_INFO("****************** GetSuppressionTime Function without random called ********************" << name);
+  NFD_LOG_INFO("****************** GetSuppressionTime Function without random called ********************");
   double val, suppressionTime;
   val = longestPrefixMatch(name);
   NFD_LOG_INFO("The suppression time from the name tree is : " << val);
   suppressionTime = (val == UNSET) ? minSuppressionTime : val;
-  NFD_LOG_INFO("Printing suppresion time !!!!!!!!!!!! " << suppressionTime); 
   time::milliseconds suppressionTimer (static_cast<int> (suppressionTime));
   NFD_LOG_INFO("Suppression time: " << suppressionTime << " Suppression timer: " << suppressionTimer);
   return suppressionTimer;
 }
 
 
+// Function to print all records in the NameTree
 
+// time::milliseconds
+// NameTree::getSuppressionTimer(const std::string& name)
+// {
+//   NFD_LOG_INFO("****************** GetSuppressionTime Function called ********************");
+//   double val, suppressionTime;
+//   val = longestPrefixMatch(name);
+//   NFD_LOG_INFO("The suppression time from the name tree is : " << val);
+//   suppressionTime = (val == UNSET) ? minSuppressionTime : val;
+//   time::milliseconds suppressionTimer (getRandomNumber(static_cast<int> (2*suppressionTime))); // timer is randomized value random backoff algorithm
+//   NFD_LOG_INFO("Suppression time: " << suppressionTime << " Suppression timer: " << suppressionTimer);
+//   return suppressionTimer;
+// }
 
 /* objectName granularity is (-1) name component
   m_lastForwardStaus is set to true if this node has successfully forwarded an interest or data
@@ -206,7 +219,7 @@ NameTree::getSuppressionTimer(const std::string& name)
   start with 15ms, MAX propagation time, for a node to hear other node
   or start with 1ms, and let node find stable suppression time region?
 */
-EMAMeasurements::EMAMeasurements(double expMovingAverage = 0, int lastDuplicateCount = 0, double suppressionTime = 15)
+EMAMeasurements::EMAMeasurements(double expMovingAverage = 0, int lastDuplicateCount = 0, double suppressionTime = 1)
 : m_expMovingAveragePrev (expMovingAverage)
 , m_expMovingAverageCurrent (expMovingAverage)
 , m_currentSuppressionTime(suppressionTime)
@@ -221,11 +234,17 @@ EMAMeasurements::EMAMeasurements(double expMovingAverage = 0, int lastDuplicateC
 
 
 void
-EMAMeasurements::addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name, char type, time::milliseconds waitTime)
+EMAMeasurements::addUpdateEMA(int duplicateCount, bool wasForwarded, std::string name, std::string seg_name)
 {
-  NFD_LOG_INFO("***********************Add update ema function called to calculate duplicate count and moving average******************" << seg_name);
+  NFD_LOG_INFO("***********************Add update ema function called to calculate duplicate count and moving average******************");
+  ignore  = (duplicateCount > m_lastDuplicateCount) ? (ignore +1) : 0;
 
-  NFD_LOG_INFO("Ignore = " << ignore << "Segment name " << seg_name << "Duplicate Count " << duplicateCount << " Last Duplicate count " << m_lastDuplicateCount << " m_expMovingAveragePrev " << m_expMovingAveragePrev << " m_expMovingAverageCurrent " << m_expMovingAverageCurrent);
+  if (ignore > 0 && ignore < maxIgnore) {
+    NFD_LOG_INFO("Duplicate count: " << duplicateCount << " m_lastdup: " << m_lastDuplicateCount << " ignore: " << ignore);
+    return;
+  }
+
+  NFD_LOG_INFO("Segment name " << seg_name << "Duplicate Count " << duplicateCount << " Last Duplicate count " << m_lastDuplicateCount << " m_expMovingAveragePrev " << m_expMovingAveragePrev << " m_expMovingAverageCurrent " << m_expMovingAverageCurrent);
   m_lastDuplicateCount = duplicateCount;
   ignore = 0;
 
@@ -238,7 +257,7 @@ EMAMeasurements::addUpdateEMA(int duplicateCount, bool wasForwarded, std::string
     // m_expMovingAverageCurrent =  round ((DISCOUNT_FACTOR*duplicateCount + 
     //                                          (1 - DISCOUNT_FACTOR)*m_expMovingAverageCurrent)*100.0)/100.0;
     m_expMovingAverageCurrent =  round ((DISCOUNT_FACTOR*duplicateCount + 
-                                              (1 - DISCOUNT_FACTOR)*m_expMovingAveragePrev)*100.0)/100.0; 
+                                              (1 - DISCOUNT_FACTOR)*m_expMovingAveragePrev)*100.0)/100.0; // Bidhya thinks it should be previous
     // if this node hadn't forwarded don't update the delay timer ???
   }
   if (m_maxDuplicateCount < duplicateCount) { m_maxDuplicateCount = duplicateCount; }
@@ -248,30 +267,26 @@ EMAMeasurements::addUpdateEMA(int duplicateCount, bool wasForwarded, std::string
   else if (m_maxDuplicateCount == 1 && m_minSuppressionTime > 1)
       m_minSuppressionTime--;
 
+  updateDelayTime(name, seg_name, m_expMovingAverageCurrent);
+  NFD_LOG_INFO("The forwarded status is " << wasForwarded << " for " << seg_name);
   
-  updateDelayTime(name, seg_name, m_expMovingAverageCurrent, waitTime, wasForwarded, type);
+
   NFD_LOG_INFO("Moving average" << " before: " << m_expMovingAveragePrev
                                 << " after: " << m_expMovingAverageCurrent
                                 << " duplicate count: " << duplicateCount
                                 << " suppression time: "<< m_currentSuppressionTime
                                 << " computed max: " << m_computedMaxSuppressionTime
-                                << " wait time: " << waitTime
               );
-  
-
- 
 }
 
 
 // Update suppression time
 void
-EMAMeasurements::updateDelayTime(std::string name, std::string seg_name, float duplicateCount, time::milliseconds suppression_time, bool wasForwarded, char type)
+EMAMeasurements::updateDelayTime(std::string name, std::string seg_name, float duplicateCount)
 {
-  NFD_LOG_INFO("****************** UpdateDelayTimer Function called ********************" << seg_name);
+  NFD_LOG_INFO("****************** UpdateDelayTimer Function called ********************");
  
   boost::property_tree::ptree message;
-  MulticastSuppression multicastSuppression;
-  
 
   // message.put("expMovingAverageCurrent", m_expMovingAverageCurrent);
   // message.put("expMovingAveragePrev", m_expMovingAveragePrev);
@@ -279,32 +294,24 @@ EMAMeasurements::updateDelayTime(std::string name, std::string seg_name, float d
   // message.put("dc", DUPLICATE_THRESHOLD);
   // message.put("dc", m_lastDuplicateCount);
   message.put("ewma_dc", duplicateCount);
-  message.put("name", name);
-  message.put("suppression_time", suppression_time);
+  message.put("seg_name", seg_name);
+  // message.put("wasForwarded", wasForwarded);
 
 
   std::ostringstream oss;
   boost::property_tree::write_json(oss, message, false);
-  std::string messageString = oss.str(); 
-  NFD_LOG_INFO("The forwarded status for " << seg_name << " is " << wasForwarded << " with suppression TIme " << suppression_time << " and dc " << duplicateCount);
-  // if(wasForwarded){
-  auto from_python = m_fifo.fifo_handler(messageString);
+  std::string messageString = oss.str();  
+  auto from_python = round(m_fifo.fifo_handler(messageString));
   // auto from_python = 0.0;
   NFD_LOG_INFO("Python Test from python = " << from_python);
-
-  m_currentSuppressionTime = std::round(from_python * 100.0) / 100.0;;
+  m_currentSuppressionTime =(m_minSuppressionTime, from_python);
   NFD_LOG_INFO("The m_currentSuppressionTime is " << m_currentSuppressionTime);  
-  NameTree* nameTree = multicastSuppression.getNameTree(type);
-  nameTree->insert(name, m_currentSuppressionTime);
-  // } 
-
- 
 }
 
 void
-MulticastSuppression::recordInterest(const Interest interest, bool isForwarded, time::milliseconds suppressionTime)
+MulticastSuppression::recordInterest(const Interest interest, bool isForwarded)
 {
-  NFD_LOG_INFO("****************** RecordInterest Function called ********************" << interest.getName());
+  NFD_LOG_INFO("****************** RecordInterest Function called ********************");
   auto name = interest.getName();
   NFD_LOG_INFO("Interest to check/record " << name);
   auto it = m_interestHistory.find(name); //check if interest is already in the map
@@ -315,10 +322,12 @@ MulticastSuppression::recordInterest(const Interest interest, bool isForwarded, 
     //  remove the entry after the lifetime expires
     time::milliseconds entryLifetime = DEFAULT_INSTANT_LIFETIME;
     NFD_LOG_INFO("Erasing the interest from the map in : " << entryLifetime);
-    setUpdateExpiration(entryLifetime, name, 'i', suppressionTime);
+    setUpdateExpiration(entryLifetime, name, 'i');
   }
   else {    
-    NFD_LOG_INFO("Counter for interest " << name << " incremented");
+    NFD_LOG_INFO("Counter for interest " << name << " incremented " << isForwarded);
+    NFD_LOG_INFO("Check forearded stateus" << getForwardedStatus(name, 'i'));
+
     if (!getForwardedStatus(name, 'i') && isForwarded) {
       ++it->second.counter;
       it->second.isForwarded = true;
@@ -340,13 +349,17 @@ MulticastSuppression::recordInterest(const Interest interest, bool isForwarded, 
 // }
 
 void
-MulticastSuppression::recordData(Data data, bool isForwarded, time::milliseconds waitTime)
+MulticastSuppression::recordData(Data data, bool isForwarded)
 {
-  NFD_LOG_INFO("****************** RecordData Function called ********************" << data.getName());
+  NFD_LOG_INFO("****************** RecordData Function called ********************");
     auto name = data.getName(); //.getPrefix(-1); //removing nounce
     NFD_LOG_INFO("Data to check/record " << name);
     auto it = m_dataHistory.find(name);
-
+    // if (m_interestHistory.count(name) > 0)
+    // {
+     
+    //   NFD_LOG_INFO("Analysis History Satisfied data for Corresponding interest: " << name);
+    // }
     NFD_LOG_INFO("Analysis History Satisfied data for Corresponding interest: " << name);
     if (it == m_dataHistory.end()) // if data is not in dataHistory
     {
@@ -354,7 +367,7 @@ MulticastSuppression::recordData(Data data, bool isForwarded, time::milliseconds
       m_dataHistory.emplace(name, ObjectHistory{1, isForwarded});
       time::milliseconds entryLifetime = DEFAULT_INSTANT_LIFETIME;
       NFD_LOG_INFO("Erasing the data from the map in : " << entryLifetime);
-      setUpdateExpiration(entryLifetime, name, 'd', waitTime);
+      setUpdateExpiration(entryLifetime, name, 'd');
     }
     else
     {
@@ -383,7 +396,7 @@ MulticastSuppression::recordData(Data data, bool isForwarded, time::milliseconds
       if (m_interestHistory.count(name) > 0)
       {
         // Calculate the EWMA of the duplicate count
-        updateMeasurement(name, 'i', waitTime);
+        updateMeasurement(name, 'i');
         int dup_int_count = 0;
         // auto duplicateCountInterest = getDuplicateCount(name, 'i');
       
@@ -406,16 +419,16 @@ MulticastSuppression::getDuplicateCount(const Name name, char type)
   return 0;
 }
 void
-MulticastSuppression::setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type, time::milliseconds waitTime)
+MulticastSuppression::setUpdateExpiration(time::milliseconds entryLifetime, Name name, char type)
 {
-  NFD_LOG_INFO("****************** SetUPdateExpiration Function called ********************" << name << " the entry life time is " << entryLifetime);
+  NFD_LOG_INFO("****************** SetUPdateExpiration Function called ********************");
   auto vec = getRecorder(type);
   auto duplicateCount = getDuplicateCount(name, type);
   auto eventId = getScheduler().schedule(entryLifetime, [=]  {
     if (vec->count(name) > 0)
     {
       //  record interest into moving average
-      updateMeasurement(name, type, waitTime);
+      updateMeasurement(name, type);
      
       vec->erase(name);
       NFD_LOG_INFO("Name: " << name << " type: " << type << " expired, and deleted from the instant history");
@@ -438,11 +451,11 @@ MulticastSuppression::setUpdateExpiration(time::milliseconds entryLifetime, Name
 }
 
 void
-MulticastSuppression::updateMeasurement(Name name, char type, time::milliseconds waitTime)
+MulticastSuppression::updateMeasurement(Name name, char type)
 {
-    NFD_LOG_INFO("****************** UpdateMeasurement Function called ********************" << name);
+    NFD_LOG_INFO("****************** UpdateMeasurement Function called ********************");
     // if the measurment expires, can't the name stay with EMA = 0? so that we dont have to recreate it again later
-    auto objectHistory = getEMARecorder(type); //return (type =='i') ? &m_EMA_interest : &m_EMA_data;
+    auto vec = getEMARecorder(type); //return (type =='i') ? &m_EMA_interest : &m_EMA_data;
     auto nameTree = getNameTree(type); //return (type =='i') ? &m_interestNameTree : &m_dataNameTree;
     auto duplicateCount = getDuplicateCount(name, type);
     NFD_LOG_INFO("getDuplicateCount Function called from updateMeasuerment " << duplicateCount << "for segment " << name);
@@ -458,18 +471,21 @@ MulticastSuppression::updateMeasurement(Name name, char type, time::milliseconds
     // granularity = name - last component e.g. /a/b --> /a
     auto seg_name = name.toUri();
     name = name.getPrefix(-1);
-    auto& emaEntry = (*objectHistory)[name];
+    auto it = vec->find(name);
 
     // no records
-    if (!emaEntry)
+    if (it == vec->end())
     {
-      emaEntry = std::make_shared<EMAMeasurements>();
       NFD_LOG_INFO("Creating EMA record for name: " << name << " type: " << type);
       auto expirationId = getScheduler().schedule(MAX_MEASURMENT_INACTIVE_PERIOD, [=]  {
-                                      objectHistory->erase(name);  // remove expired record
-                                      nameTree->insert(name.toUri(), UNSET);  // unset the value in the name tree
+                                      if (vec->count(name) > 0)
+                                          vec->erase(name);
+                                          // dont delete the entry in the nametree, just unset the value
+                                      nameTree->insert(name.toUri(), UNSET);
                                   });
+      auto& emaEntry = vec->emplace(name, std::make_shared<EMAMeasurements>()).first->second;
       emaEntry->setEMAExpiration(expirationId);
+      emaEntry->addUpdateEMA(duplicateCount, wasForwarded, name.toUri(), seg_name);
 
       // emaEntry->getCurrentSuppressionTime() will return m_currentSuppressionTime
       nameTree->insert(name.toUri(), emaEntry->getCurrentSuppressionTime());
@@ -480,86 +496,26 @@ MulticastSuppression::updateMeasurement(Name name, char type, time::milliseconds
     else
     {
       NFD_LOG_INFO("Updating EMA record for name: " << name << " type: " << type);
-      emaEntry->getEMAExpiration().cancel();
+      it->second->getEMAExpiration().cancel();
       auto expirationId = getScheduler().schedule(MAX_MEASURMENT_INACTIVE_PERIOD, [=]  {
-                                          objectHistory->erase(name);  // remove expired record
-                                          nameTree->insert(name.toUri(), UNSET);  // unset the value in the name tree
-    });
-      emaEntry->setEMAExpiration(expirationId);
-      nameTree->insert(name.toUri(), emaEntry->getCurrentSuppressionTime());
-      NFD_LOG_INFO("THe name inserted in name tree " << name << " and the suppression time from update " << emaEntry->getCurrentSuppressionTime());
+                                          if (vec->count(name) > 0)
+                                              vec->erase(name);
+                                              // set the value in the nametree = -1
+                                          nameTree->insert(name.toUri(), UNSET);
+                                      });
+
+      it->second->setEMAExpiration(expirationId);
+      it->second->addUpdateEMA(duplicateCount, wasForwarded, name.toUri(), seg_name);
+      nameTree->insert(name.toUri(), it->second->getCurrentSuppressionTime());
+      NFD_LOG_INFO("THe name inserted in name tree " << name << " and the suppression time from update " << it->second->getCurrentSuppressionTime());
 
     }
-    emaEntry->addUpdateEMA(duplicateCount, wasForwarded, name.toUri(), seg_name, type, waitTime);
 }
-
-
-// void
-// MulticastSuppression::updateMeasurement(Name name, char type, time::milliseconds waitTime)
-// {
-//     NFD_LOG_INFO("****************** UpdateMeasurement Function called ********************");
-//     // if the measurment expires, can't the name stay with EMA = 0? so that we dont have to recreate it again later
-//     auto vec = getEMARecorder(type); //return (type =='i') ? &m_EMA_interest : &m_EMA_data;
-//     auto nameTree = getNameTree(type); //return (type =='i') ? &m_interestNameTree : &m_dataNameTree;
-//     auto duplicateCount = getDuplicateCount(name, type);
-//     NFD_LOG_INFO("getDuplicateCount Function called from updateMeasuerment " << duplicateCount << "for segment " << name);
-//     bool wasForwarded = getForwardedStatus(name, type);
-//      if(type=='i'){
-//         NFD_LOG_INFO("Duplicate count "<< duplicateCount << "type = " << type << " Analysis History Interest " << name);
-//       }
-//       else{
-//         NFD_LOG_INFO("Duplicate count "<< duplicateCount << "type = " << type << " Analysis History Data " << name);
-//       }
-
-//     NFD_LOG_INFO("Name:  " << name << " Duplicate Count from getDuplicate: " << duplicateCount << " type: " << type);
-//     // granularity = name - last component e.g. /a/b --> /a
-//     auto seg_name = name.toUri();
-//     name = name.getPrefix(-1);
-//     auto it = vec->find(name);
-
-//     // no records
-//     if (it == vec->end())
-//     {
-//       NFD_LOG_INFO("Creating EMA record for name: " << name << " type: " << type);
-//       auto expirationId = getScheduler().schedule(MAX_MEASURMENT_INACTIVE_PERIOD, [=]  {
-//                                       if (vec->count(name) > 0)
-//                                           vec->erase(name);
-//                                           // dont delete the entry in the nametree, just unset the value
-//                                       nameTree->insert(name.toUri(), UNSET);
-//                                   });
-//       auto& emaEntry = vec->emplace(name, std::make_shared<EMAMeasurements>()).first->second;
-//       emaEntry->setEMAExpiration(expirationId);
-//       emaEntry->addUpdateEMA(duplicateCount, wasForwarded, name.toUri(), seg_name, type, waitTime);
-
-//       // emaEntry->getCurrentSuppressionTime() will return m_currentSuppressionTime
-//       nameTree->insert(name.toUri(), emaEntry->getCurrentSuppressionTime());
-//       auto emtime = emaEntry->getCurrentSuppressionTime();
-//       NFD_LOG_INFO("THe name inserted in name tree " << name << " and the suppression time from ema for new " << emtime);
-//     }
-//     // update existing record
-//     else
-//     {
-//       NFD_LOG_INFO("Updating EMA record for name: " << name << " type: " << type);
-//       it->second->getEMAExpiration().cancel();
-//       auto expirationId = getScheduler().schedule(MAX_MEASURMENT_INACTIVE_PERIOD, [=]  {
-//                                           if (vec->count(name) > 0)
-//                                               vec->erase(name);
-//                                               // set the value in the nametree = -1
-//                                           nameTree->insert(name.toUri(), UNSET);
-//                                       });
-
-//       it->second->setEMAExpiration(expirationId);
-//       it->second->addUpdateEMA(duplicateCount, wasForwarded, name.toUri(), seg_name, type, waitTime);
-//       nameTree->insert(name.toUri(), it->second->getCurrentSuppressionTime());
-//       NFD_LOG_INFO("THe name inserted in name tree " << name << " and the suppression time from update " << it->second->getCurrentSuppressionTime());
-
-//     }
-// }
 
 time::milliseconds
 MulticastSuppression::getDelayTimer(Name name, char type)
 {
-  NFD_LOG_INFO("Getting supperssion timer for name: " << name << " type " << type);
+  NFD_LOG_INFO("Getting supperssion timer for name: " << name);
   auto nameTree = getNameTree(type);
 
  

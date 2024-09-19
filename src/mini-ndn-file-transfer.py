@@ -2,14 +2,11 @@
 from mn_wifi.topo import Topo
 from mininet.log import setLogLevel, info
 from mininet.node import CPULimitedHost
-from minindn.util import MiniNDNCLI
 from minindn.apps.app_manager import AppManager
 from minindn.apps.nfd import Nfd
 from minindn.helpers.nfdc import Nfdc
 from minindn.wifi.minindnwifi import MinindnWifi
 from minindn.util import MiniNDNWifiCLI, getPopen
-from mn_wifi.link import wmediumd, mesh
-from mn_wifi.wmediumdConnector import interference
 from time import sleep
 import subprocess
 import shutil
@@ -17,9 +14,11 @@ import os
 import sys
 import itertools
 
-_F_NAME = "transfer"
+
+_F_NAME = "transfer_"
 parent_folder = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-rl_path = os.path.join(parent_folder, 'rl/base1.py')
+rl_path = os.path.join(parent_folder, 'rl/base_multiple_file.py')
+
 all_nodes = {
     "sta1": {"position": (10,10,0)},
     "sta2": {"position": (30,10,0)},
@@ -45,12 +44,16 @@ def sendFile(node, prefix, file):
     publised_under = "{}/{}".format(prefix, fname)
     info ("Publishing file: {}, under name: {} \n".format(fname, publised_under))
     cmd = 'ndnputchunks -s 1100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    # cmd = 'ndnputchunks -s 100 {} < {} > putchunks.log 2>&1 &'.format(publised_under, file)
+    print(f"Send File: {cmd}")
     node.cmd(cmd)
     sleep(10)
 
-def receiveFile(node, prefix, filename):
-    info ("Fetching file: {} \n".format(filename))
-    cmd = 'ndncatchunks -v -p cubic --log-cwnd log-cwnd --log-rtt log-rtt {}/{} > {} 2> catchunks-{}.log &'.format(prefix, _F_NAME, filename, filename)
+def receiveFile(node, prefix, filename, full_filename):
+    file_prefix = filename.split('.')[0]
+    info ("Fetching file: {} \n".format(full_filename))
+    cmd = 'ndncatchunks -v -p cubic --log-cwnd log-cwnd --log-rtt log-rtt {}/{} > {} 2> catchunks-{}-{}.log &'.format(prefix, file_prefix, full_filename, full_filename, filename)
+    print(f"Received File: {cmd}")
     node.cmd(cmd)
 
 if __name__ == '__main__':
@@ -75,7 +78,7 @@ if __name__ == '__main__':
     for ap in accessPoint:
         _ap.append(topo.addAccessPoint(ap, **accessPoint[ap]))
 
-    optsforlink1  = {'bw':54, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
+    optsforlink1  = {'bw':100, 'delay':'5ms', 'loss':0, 'mode': 'g'} # bandwidth of link, delay of the link, packet loss percentage
 
     for s in _s:
         topo.addLink(s, _ap[0], **optsforlink1) #adds a wireless link between the current station s and the first access point (_ap[0]).
@@ -99,7 +102,6 @@ if __name__ == '__main__':
         node.cmd("sysctl net.ipv4.ipfrag_time = 10") #sets the value of the net.ipv4.ipfrag_time parameter to 10 on the station.
         node.cmd("sysctl net.ipv4.ipfrag_high_thresh = 26214400") #sets the value of the net.ipv4.ipfrag_high_thresh parameter to 26214400 on the station. This parameter is related to the high threshold for IPv4 packet fragmentation
     sleep(1)
-    # producers_prefix = {"sta1" : "/producer/sta1"}
     producers_prefix = {"sta1" : "/producer/sta1"}
     ndnwifi.start()
     info("Starting NFD ")
@@ -110,32 +112,74 @@ if __name__ == '__main__':
     mcast = "224.0.23.170"
     producers = [ndnwifi.net[x] for x in producers_prefix.keys()]
     consumers = [y for y in ndnwifi.net.stations if y.name not in [x.name for x in producers]]
-    # print ("producers: ", producers)
-    # print ("consumers: ", consumers)
-    # print("RL path: ", rl_path)
+    print ("producers: ", producers)
+    print ("consumers: ", consumers)
+    print("RL path: ", rl_path)
+    # nlsrc advertises prefix/withdraw prefixes and route status
     
     for c in consumers:
         Nfdc.registerRoute (c, "/producer", mcast)
         sleep(2)
-        c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
+        print(c.name)
+        # c.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, c.name))
+         # Pass single argument to rl_path script
+        arg1 = c.name  # replace with actual argument if needed
+        c.cmd(f"/usr/bin/python {rl_path} {arg1} > reinforcement-{c.name}.log 2>&1 &")
+
+        print(rl_path, c.name)
         sleep(5) #changed to 5 from 10
-        # print("The consumer slept for 5 ms") 
+        print("The consumer slept for 5 ms") 
     for p in producers:
         # sleep (1)
-        # print ("starting producer {}".format(p))
-        p.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, p.name))
+        print ("starting producer {}".format(p))
+        # p.cmd("/usr/bin/python {} > reinforcement-{}.log 2>&1 &".format(rl_path, p.name))
+        arg1 = p.name  # replace with actual argument if needed
+        p.cmd(f"/usr/bin/python {rl_path} {arg1} > reinforcement-{p.name}.log 2>&1 &")
+
 
         sleep(5)#changed to 5 from 10
-        # print("The producer slept for 10 ms before sending the file !!!")
-        sendFile(p, producers_prefix[p.name], testFile)
+        print("The producer slept for 10 ms before sending the file !!!")
+        # sendFile(p, producers_prefix[p.name], testFile)
 
 
-    for c in consumers:
-        # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
-        for p in producers:
-            receiveFile(c, producers_prefix[p.name], p.name+".txt")
+    # for c in consumers:
+    #     # sleep(random.uniform(0, 1) % 0.02) # sleep at max 20ms
+    #     for p in producers:
+    #         receiveFile(c, producers_prefix[p.name], p.name+".txt")
 
+    base_path = "/home/bidhya/workspace/STRL/files/"
+    file_list = [
+        # "transfer2.dat",
+        # "transfer3.dat",
+        # "transfer4.dat",
+        # "transfer5.dat",
+        # "transfer6.dat",
+        # "transfer7.dat",
+        # "transfer8.dat",
+        "transfer9.dat"
+        # "transfer10.dat",
+        # "transfer11.dat",
+        # "transfer12.dat",
+        # "transfer13.dat",
+        # "transfer14.dat",
+        # "transfer15.dat"
+        ]
+    for file in file_list:
+        producer_0 = producers[0]
+        producer_name = producer_0.name
+
+        sendFile(p, producers_prefix[producer_name], base_path + file)
+
+        for c in consumers:
+            receiveFile(c, producers_prefix[producer_name], file, producer_name + ".txt")
+
+    
 
     MiniNDNWifiCLI(ndnwifi.net)
+    
+ 
     # sleep(60)
     ndnwifi.stop()
+
+
+    
