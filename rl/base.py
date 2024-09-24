@@ -1,6 +1,3 @@
-
-
-
 import os
 import time
 import string
@@ -20,8 +17,8 @@ def get_timestamp():
 FIFO_SUPPRESSION_VALUE = 'fifo_suppression_value'
 FIFO_OBJECT_DETAILS = 'fifo_object_details'
 EMBEDDING_DIMENSION = 80
-EVALUATION_INTERVAL = 100  # Evaluate every 1000 steps
-PERFORMANCE_THRESHOLD = 5.5 # Threshold for performance to resume training
+EVALUATION_INTERVAL = 10  # Evaluate every 1000 steps
+PERFORMANCE_THRESHOLD = 3.5 # Threshold for performance to resume training
 experience_dict = {}
 reward_history = []
 score = 0
@@ -106,7 +103,7 @@ def main(node_name):
     # print(f"{get_timestamp()}Execution time for Loading model time ", (end_time_load_model - start_time_load_model)*1000)
     counter = 1
     previous_dc = 1 # previous duplicate count
-    training = False # True
+    training = True # True
     fifo_read_time = 0
     fifo_write_time = 0
     embedding_time = 0
@@ -185,12 +182,12 @@ def main(node_name):
                 if average_reward >= PERFORMANCE_THRESHOLD:
                     print("Pausing training due to satisfactory performance.")
                     agent.save_models()
-                    training = False
-                else:
-                    print("Resuming training due to poor performance.")
-                    # if os.path.exists(node_dir):
-                    #     agent.load_models()  # Load the model when resuming training
                     training = True
+                # else:
+                #     print("Resuming training due to poor performance.")
+                #     # if os.path.exists(node_dir):
+                #     #     agent.load_models()  # Load the model when resuming training
+                #     training = True
             
             end_time = time.time()
             execution_time = (end_time - start_time)*1000
